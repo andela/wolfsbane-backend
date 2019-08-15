@@ -1,10 +1,11 @@
 {
-  "name": "express-authorshaven",
+  "name": "wolfsbane-backend",
   "version": "1.0.0",
-  "description": "A Social platform for the creative at heart",
-  "main": "index.js",
+  "description": "A travel booking server",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "nodemon --exec babel-node ./server/app.js"
   },
   "author": "Andela Simulations Programme",
   "license": "MIT",
@@ -26,5 +27,16 @@
     "passport-local": "^1.0.0",
     "request": "^2.87.0",
     "underscore": "^1.9.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/node": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/register": "^7.5.5",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "nodemon": "^1.19.1"
   }
 }
