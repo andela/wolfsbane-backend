@@ -2,10 +2,10 @@
   "name": "wolfsbane-backend",
   "version": "1.0.0",
   "description": "A travel booking server",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "nodemon --exec babel-node ./server/app.js"
+    "start:dev": "nodemon --exec babel-node ./src/index.js"
   },
   "author": "Andela Simulations Programme",
   "license": "MIT",
