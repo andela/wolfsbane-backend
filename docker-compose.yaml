@@ -1,0 +1,12 @@
+version: "3"
+services:
+  node_dev_env:
+    restart: always
+    build: .
+    container_name: wolfsbane-backend
+    ports:
+      - 3000:3000
+    command: npm run start:dev
+    volumes:
+      - .:/app/
+      - /app/node_modules
