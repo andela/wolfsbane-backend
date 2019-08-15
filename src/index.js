@@ -10,8 +10,48 @@ app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.get('/', (req, res) => res.json({ status: res.statusCode, message: 'Welcome to Wolfsbane' }));
+const isProduction = process.env.NODE_ENV === 'production';
+
+// catch 404 and forward to error handler
+app.use((req, res, next) => {
+  const err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
+// development error handler
+// will print stacktrace
+if (!isProduction) {
+  app.use((err, req, res, next) => {
+    // eslint-disable-next-line no-console
+    console.log(err.stack);
+
+    res.status(err.status || 500);
+
+    res.json({
+      errors: {
+        message: err.message,
+        error: err
+      }
+    });
+  });
+}
+
+// production error handler
+// no stacktraces leaked to user
+app.use((err, req, res, next) => {
+  res.status(err.status || 500);
+  res.json({
+    errors: {
+      message: err.message,
+      error: {}
+    }
+  });
+});
+
 // Test route
+app.get('/', (req, res) => res.json({ status: res.statusCode, message: 'Welcome to Wolfsbane' }));
+
 const port = process.env.PORT || 3000;
 
 // eslint-disable-next-line no-console
