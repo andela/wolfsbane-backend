@@ -12,6 +12,9 @@ app.use(express.json());
 
 const isProduction = process.env.NODE_ENV === 'production';
 
+// Test route
+app.get('/', (req, res) => res.json({ status: res.statusCode, message: 'Welcome to Wolfsbane' }));
+
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   const err = new Error('Not Found');
@@ -25,9 +28,7 @@ if (!isProduction) {
   app.use((err, req, res, next) => {
     // eslint-disable-next-line no-console
     console.log(err.stack);
-
     res.status(err.status || 500);
-
     res.json({
       errors: {
         message: err.message,
@@ -49,10 +50,9 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Test route
-app.get('/', (req, res) => res.json({ status: res.statusCode, message: 'Welcome to Wolfsbane' }));
-
 const port = process.env.PORT || 3000;
 
 // eslint-disable-next-line no-console
 app.listen(port, () => console.log(`Server started on localhost:${port}`));
+
+export default app;
