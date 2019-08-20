@@ -1,6 +1,5 @@
 import express from 'express';
 import cors from 'cors';
-
 // Create global app object
 const app = express();
 
@@ -49,6 +48,7 @@ app.use((err, req, res, next) => {
     }
   });
 });
+
 
 const port = process.env.PORT || 3000;
 
