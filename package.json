@@ -4,7 +4,7 @@
   "description": "A travel booking server",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test && mocha src/test --require @babel/register --recursive --exit || true",
+    "test": "cross-env NODE_ENV=test && nyc mocha src/test --require @babel/register --recursive --exit || true",
     "start:dev": "cross-env NODE_ENV=development nodemon --exec babel-node ./src/index.js",
     "coverage": "nyc report --reporter=text-lcov --reporter=lcov | coveralls",
     "migrate": "sequelize db:migrate",
@@ -22,7 +22,7 @@
     "errorhandler": "^1.5.0",
     "express": "^4.16.3",
     "jsonwebtoken": "^8.3.0",
-    "passport": "^0.4.0",    
+    "passport": "^0.4.0",
     "pg": "^7.12.1",
     "pg-hstore": "^2.3.3",
     "sequelize": "^5.15.0"
