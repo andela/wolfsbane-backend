@@ -1,5 +1,6 @@
 import './base-route/base-route.test';
 import './controllers/users.test';
+import './controllers/socialAuth.test';
 import './models/Department.test';
 import './models/Profile.test';
 import './models/Accomodation.test';
