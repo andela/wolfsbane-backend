@@ -5,8 +5,5 @@ export default (sequelize, DataTypes) => {
       allowNull: false
     },
   }, {});
-  Department.associate = (models) => {
-    // associations can be defined here
-  };
   return Department;
 };
