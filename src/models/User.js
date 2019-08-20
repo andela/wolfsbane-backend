@@ -16,10 +16,10 @@ export default (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING,
       allowNull: false
-    },
+    }
   });
   User.associate = (models) => {
-    User.hasOne(models.Profile, { as: 'theUser', foreignKey: 'userId' });
+    User.hasOne(models.profiles, { as: 'theUser', foreignKey: 'userId' });
   };
   return User;
 };

@@ -1,17 +1,16 @@
-
 export default {
-  up: (queryInterface, Sequelize) => queryInterface.bulkInsert(
+  up: queryInterface => queryInterface.bulkInsert(
     'departments',
     [
       {
-        name: 'Software Engineering',
+        name: 'Software Engineering'
       },
       {
-        name: 'Accounting',
+        name: 'Accounting'
       }
     ],
     {}
   ),
 
-  down: (queryInterface, Sequelize) => queryInterface.bulkDelete('departments', null, {})
+  down: queryInterface => queryInterface.bulkDelete('departments', null, {})
 };

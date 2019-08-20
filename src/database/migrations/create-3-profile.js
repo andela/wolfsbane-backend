@@ -5,7 +5,7 @@ export default {
       allowNull: false,
       references: {
         model: 'users',
-        key: 'id',
+        key: 'id'
       },
       onUpdate: 'CASCADE',
       onDelete: 'SET NULL'
@@ -19,7 +19,7 @@ export default {
       allowNull: false,
       references: {
         model: 'departments',
-        key: 'id',
+        key: 'id'
       },
       onUpdate: 'CASCADE',
       onDelete: 'SET NULL'
@@ -50,5 +50,5 @@ export default {
       type: Sequelize.DATE
     }
   }),
-  down: (queryInterface, Sequelize) => queryInterface.dropTable('profiles')
+  down: queryInterface => queryInterface.dropTable('profiles')
 };

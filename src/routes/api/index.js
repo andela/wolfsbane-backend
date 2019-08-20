@@ -1,9 +1,9 @@
 import express from 'express';
+import userRoute from './users';
 
 const router = express.Router();
 
-router.use('/', require('./users'));
-
+router.use('/user', userRoute);
 // Test route
 router.use((err, req, res, next) => {
   if (err.name === 'ValidationError') {
@@ -17,5 +17,4 @@ router.use((err, req, res, next) => {
 
   return next(err);
 });
-
-module.exports = router;
+export default router;

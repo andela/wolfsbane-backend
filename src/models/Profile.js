@@ -5,7 +5,7 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
       references: {
         model: 'users',
-        key: 'id',
+        key: 'id'
       },
       onUpdate: 'CASCADE',
       onDelete: 'SET NULL'
@@ -19,7 +19,7 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
       references: {
         model: 'departments',
-        key: 'id',
+        key: 'id'
       },
       onUpdate: 'CASCADE',
       onDelete: 'SET NULL'
@@ -40,10 +40,10 @@ export default (sequelize, DataTypes) => {
     isVerified: {
       type: DataTypes.BOOLEAN,
       allowNull: true
-    },
+    }
   });
   Profile.associate = (models) => {
-    Profile.belongsTo(models.Department, { as: 'theDepartment', foreignKey: 'departmentId' });
+    Profile.belongsTo(models.departments, { as: 'theDepartment', foreignKey: 'departmentId' });
   };
   return Profile;
 };

@@ -1,5 +1,5 @@
 export default {
-  up: (queryInterface, Sequelize) => queryInterface.bulkInsert(
+  up: queryInterface => queryInterface.bulkInsert(
     'users',
     [
       {
@@ -9,10 +9,10 @@ export default {
         password: 'funmi',
         createdAt: new Date(),
         updatedAt: new Date()
-      },
+      }
     ],
     {}
   ),
 
-  down: (queryInterface, Sequelize) => queryInterface.bulkDelete('users', null, {})
+  down: queryInterface => queryInterface.bulkDelete('users', null, {})
 };
