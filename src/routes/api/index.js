@@ -3,7 +3,12 @@ import userRoute from './users';
 
 const router = express.Router();
 
-router.use('/user', userRoute);
+router.use('/', userRoute);
+
+router.get('/', (req, res) => {
+  res.status(200).json({ message: 'Welcome to wolfsbane server' });
+});
+
 // Test route
 router.use((err, req, res, next) => {
   if (err.name === 'ValidationError') {
