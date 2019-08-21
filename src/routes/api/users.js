@@ -1,11 +1,12 @@
 import express from 'express';
 import middlewares from '../../middlewares';
-import registerUser from '../../controllers';
+import { UsersController } from '../../controllers';
 
 const { validate } = middlewares;
+const { registerUser } = UsersController;
 
 const router = express.Router();
 
-router.post('/users/signup', validate('userRegister'), registerUser);
+router.post('/signup', validate('userRegister'), registerUser);
 
 export default router;

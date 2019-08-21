@@ -1,6 +1,6 @@
 import models from '../models';
 import config from '../config';
-import { hashPassword } from './token-password';
+import { hashPassword } from './bcrypt';
 
 /**
    * It uses the done method to return an authenticated user or an error object

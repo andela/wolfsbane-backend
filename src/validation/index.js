@@ -1,9 +1,14 @@
-import { userRegister, userLogin } from './validators/rules';
+import {
+  userRegister, userLogin,
+  forgotPassword, resetPassword
+} from './validators/rules';
 
 const getValidator = (validationName) => {
   const rules = {
     userRegister,
-    userLogin
+    userLogin,
+    forgotPassword,
+    resetPassword
   };
 
   return rules[validationName];

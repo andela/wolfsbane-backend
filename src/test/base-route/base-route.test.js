@@ -6,7 +6,7 @@ import { status } from '../../utils';
 chai.use(chaiHttp);
 chai.should();
 
-const entryRoute = '/api/v1';
+const entryRoute = '/';
 
 // Base Route Test
 describe('Base Route Test ', () => {
@@ -14,7 +14,7 @@ describe('Base Route Test ', () => {
     chai.request(server).get(entryRoute).end((error, response) => {
       if (error) throw Error(`Error making test request ${entryRoute}`);
       response.should.have.status(status.success);
-      response.body.message.should.equal('Welcome to wolfsbane server');
+      response.body.message.should.equal('Welcome to Wolfsbane');
       done();
     });
   });

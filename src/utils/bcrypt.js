@@ -1,6 +1,5 @@
 /* eslint-disable camelcase */
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 /**
    * Hash Password Method
    * @param {string} password
@@ -18,21 +17,8 @@ const hashPassword = password => bcrypt.hashSync(password, salt);
    */
 const comparePassword = (hashedPassword, password) => bcrypt.compareSync(password, hashedPassword);
 
-/**
-   * Generate Token
-   * @param {string} id
-   * @returns {string} token
-   */
-const generateUserToken = ({ id }) => {
-  const token = jwt.sign({
-    userId: id
-  },
-  process.env.SECRET, { expiresIn: '3d' });
-  return token;
-};
 
 export {
   hashPassword,
-  comparePassword,
-  generateUserToken,
+  comparePassword
 };
