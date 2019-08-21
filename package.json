@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test && nyc mocha src/test --require @babel/register --recursive --exit || true",
+    "start": "node ./src/index.js",
     "start:dev": "cross-env NODE_ENV=development nodemon --exec babel-node ./src/index.js",
     "coverage": "nyc report --reporter=text-lcov --reporter=lcov | coveralls",
     "migrate": "sequelize db:migrate",

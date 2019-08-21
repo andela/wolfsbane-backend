@@ -1,7 +1,10 @@
-const router = require('express').Router();
+import express from 'express';
+
+const router = express.Router();
 
 router.use('/', require('./users'));
 
+// Test route
 router.use((err, req, res, next) => {
   if (err.name === 'ValidationError') {
     return res.status(422).json({
