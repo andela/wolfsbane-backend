@@ -1,5 +1,5 @@
 export default (sequelize, DataTypes) => {
-  const User = sequelize.define('users', {
+  const User = sequelize.define('Users', {
     firstName: {
       type: DataTypes.STRING,
       allowNull: true
@@ -16,10 +16,16 @@ export default (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    isVerified: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
     }
   });
   User.associate = (models) => {
-    User.hasOne(models.profiles, { as: 'theUser', foreignKey: 'userId' });
+    User.hasOne(models.Profiles, { as: 'theUser', foreignKey: 'userId' });
+    User.hasMany(models.Requests, { as: 'userRequests', foreignKey: 'userId' });
   };
   return User;
 };

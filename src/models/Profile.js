@@ -1,10 +1,10 @@
 export default (sequelize, DataTypes) => {
-  const Profile = sequelize.define('profiles', {
+  const Profile = sequelize.define('Profiles', {
     userId: {
       type: DataTypes.STRING,
       allowNull: false,
       references: {
-        model: 'users',
+        model: 'Users',
         key: 'id'
       },
       onUpdate: 'CASCADE',
@@ -18,7 +18,7 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       references: {
-        model: 'departments',
+        model: 'Departments',
         key: 'id'
       },
       onUpdate: 'CASCADE',
@@ -37,13 +37,9 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true
     },
-    isVerified: {
-      type: DataTypes.BOOLEAN,
-      allowNull: true
-    }
   });
   Profile.associate = (models) => {
-    Profile.belongsTo(models.departments, { as: 'theDepartment', foreignKey: 'departmentId' });
+    Profile.belongsTo(models.Departments, { as: 'theDepartment', foreignKey: 'departmentId' });
   };
   return Profile;
 };

@@ -1,5 +1,5 @@
 export default {
-  up: (queryInterface, Sequelize) => queryInterface.sequelize.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";').then(() => queryInterface.createTable('Departments', {
+  up: (queryInterface, Sequelize) => queryInterface.createTable('Accomodations', {
     id: {
       allowNull: false,
       primaryKey: true,
@@ -9,6 +9,14 @@ export default {
     name: {
       type: Sequelize.STRING,
       allowNull: false
+    },
+    address: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    image: {
+      type: Sequelize.STRING,
+      allowNull: true
     },
     createdAt: {
       allowNull: false,
@@ -20,6 +28,6 @@ export default {
       type: Sequelize.DATE,
       defaultValue: new Date()
     }
-  })),
-  down: queryInterface => queryInterface.dropTable('Departments')
+  }),
+  down: (queryInterface, Sequelize) => queryInterface.dropTable('Accomodations')
 };

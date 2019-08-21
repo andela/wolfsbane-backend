@@ -1,10 +1,10 @@
 export default {
-  up: (queryInterface, Sequelize) => queryInterface.createTable('profiles', {
+  up: (queryInterface, Sequelize) => queryInterface.createTable('Profiles', {
     userId: {
       type: Sequelize.DataTypes.UUID,
       allowNull: false,
       references: {
-        model: 'users',
+        model: 'Users',
         key: 'id'
       },
       onUpdate: 'CASCADE',
@@ -18,7 +18,7 @@ export default {
       type: Sequelize.DataTypes.UUID,
       allowNull: false,
       references: {
-        model: 'departments',
+        model: 'Departments',
         key: 'id'
       },
       onUpdate: 'CASCADE',
@@ -27,7 +27,6 @@ export default {
     role: {
       type: Sequelize.ENUM('Super Admin', 'Travel Admin', 'Manager', 'Staff'),
       defaultValue: 'Staff',
-      allowNull: true
     },
     jobDescription: {
       type: Sequelize.STRING,
@@ -35,10 +34,6 @@ export default {
     },
     imageUrl: {
       type: Sequelize.STRING,
-      allowNull: true
-    },
-    isVerified: {
-      type: Sequelize.BOOLEAN,
       allowNull: true
     },
     createdAt: {
@@ -50,5 +45,5 @@ export default {
       type: Sequelize.DATE
     }
   }),
-  down: queryInterface => queryInterface.dropTable('profiles')
+  down: queryInterface => queryInterface.dropTable('Profiles')
 };

@@ -1,6 +1,6 @@
 export default {
   up: queryInterface => queryInterface.bulkInsert(
-    'users',
+    'Users',
     [
       {
         firstName: '',
@@ -14,5 +14,5 @@ export default {
     {}
   ),
 
-  down: queryInterface => queryInterface.bulkDelete('users', null, {})
+  down: queryInterface => queryInterface.bulkDelete('Users', null, {})
 };

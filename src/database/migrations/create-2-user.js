@@ -1,6 +1,6 @@
 export default {
   up(queryInterface, Sequelize) {
-    return queryInterface.sequelize.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";').then(() => queryInterface.createTable('users', {
+    return queryInterface.sequelize.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";').then(() => queryInterface.createTable('Users', {
       id: {
         allowNull: false,
         primaryKey: true,
@@ -24,6 +24,10 @@ export default {
         type: Sequelize.STRING,
         allowNull: false
       },
+      isVerified: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -34,5 +38,5 @@ export default {
       }
     }));
   },
-  down: queryInterface => queryInterface.dropTable('users')
+  down: queryInterface => queryInterface.dropTable('Users')
 };
