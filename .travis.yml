@@ -3,6 +3,8 @@ node_js:
   - "node"
 notifications:
   email: false
+services:
+  - postgresql
 env:
   global: 
   - CC_TEST_REPORTER_ID=6e88909a884f0304d049dbe9e4d7261af2ae104c540510edf967a75f96f453bc
@@ -14,3 +16,8 @@ script:
   - npm run test
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+cache:
+  directories:
+    - "node_modules" 
+after_success:
+- npm run coverage

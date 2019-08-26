@@ -1,30 +1,25 @@
 export default (sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
-    first_name: {
+  const User = sequelize.define('users', {
+    firstName: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
-    last_name: {
+    lastName: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
+      unique: true,
+      allowNull: false
     },
     password: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    is_admin: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-
-    }
-  }, {});
+  });
   User.associate = (models) => {
-    // associations can be defined here
+    User.hasOne(models.Profile, { as: 'theUser', foreignKey: 'userId' });
   };
   return User;
 };
