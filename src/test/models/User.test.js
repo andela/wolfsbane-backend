@@ -1,9 +1,6 @@
 import chai from 'chai';
 import {
-  sequelize,
-  dataTypes,
-  checkModelName,
-  checkPropertyExists
+  sequelize, dataTypes, checkModelName, checkPropertyExists
 } from 'sequelize-test-helpers';
 
 import UserModel from '../../models/User';
@@ -12,7 +9,6 @@ const { expect } = chai;
 const sinonChai = require('sinon-chai');
 
 chai.use(sinonChai);
-
 
 describe('Test for User Model', () => {
   const User = UserModel(sequelize, dataTypes);
@@ -24,14 +20,14 @@ describe('Test for User Model', () => {
     ['firstName', 'lastName', 'email', 'password'].forEach(checkPropertyExists(users));
   });
   context('associations', () => {
-    const Profile = 'the user profile';
+    const profiles = 'the user profile';
 
     before(() => {
-      User.associate({ Profile });
+      User.associate({ profiles });
     });
 
     it('defined a hasOne association with Profile', () => {
-      expect(User.hasOne).to.have.been.calledWith(Profile);
+      expect(User.hasOne).to.have.been.calledWith(profiles);
     });
   });
 });

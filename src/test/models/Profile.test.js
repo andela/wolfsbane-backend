@@ -1,9 +1,6 @@
 import chai from 'chai';
 import {
-  sequelize,
-  dataTypes,
-  checkModelName,
-  checkPropertyExists
+  sequelize, dataTypes, checkModelName, checkPropertyExists
 } from 'sequelize-test-helpers';
 
 import ProfileModel from '../../models/Profile';
@@ -20,19 +17,19 @@ describe('Test for Profile Model', () => {
   checkModelName(Profile)('profiles');
 
   context('properties', () => {
-    ['userId', 'phoneNumber',
-      'departmentId', 'role', 'jobDescription',
-      'imageUrl', 'isVerified'].forEach(checkPropertyExists(profiles));
+    ['userId', 'phoneNumber', 'departmentId', 'role', 'jobDescription', 'imageUrl', 'isVerified'].forEach(
+      checkPropertyExists(profiles)
+    );
   });
   context('associations', () => {
-    const Department = 'the department the user profile belongs to';
+    const departments = 'the department the user profile belongs to';
 
     before(() => {
-      Profile.associate({ Department });
+      Profile.associate({ departments });
     });
 
     it('defined a belongsTo association with Department', () => {
-      expect(Profile.belongsTo).to.have.been.calledWith(Department);
+      expect(Profile.belongsTo).to.have.been.calledWith(departments);
     });
   });
 });
