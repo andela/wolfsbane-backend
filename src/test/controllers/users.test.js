@@ -112,3 +112,21 @@ describe('User Registration test', () => {
     expect(res.status).to.have.been.calledWith(500);
   });
 });
+
+
+describe('User controller unit test', () => {
+  it('return error for invalid request object', async () => {
+    // creating an empty req body to generate error
+    const req = {};
+
+    // mocking res.status().json
+    const res = {
+      status: () => ({ json: jsonVal => JSON.stringify(jsonVal) }),
+    };
+    // call controller with mocked req,res objects
+    let returnValue = await registerUser(req, res);
+    returnValue = JSON.parse(returnValue);
+    chai.expect(returnValue.status).equal(500);
+    chai.expect(returnValue).to.have.property('message');
+  });
+});

@@ -1,12 +1,27 @@
 version: "3"
 services:
-  node_dev_env:
+  app:
     restart: always
     build: .
     container_name: wolfsbane-backend
+    links:
+      - postgres
+    environment:
+      DEV_DATABASE_URL: postgres://devuser:1234@postgres:5432/dev_db
+      NODE_ENV: development
+      PORT: 3000
     ports:
       - 3000:3000
     command: npm run start:dev
     volumes:
       - .:/app/
       - /app/node_modules
+
+  postgres:
+    image: postgres:11
+    ports:
+      - "35432:5432"
+    environment:
+      POSTGRES_USER: devuser
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: dev_db

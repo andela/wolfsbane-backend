@@ -6,7 +6,7 @@ notifications:
 services:
   - postgresql
 env:
-  global: 
+  global:
   - CC_TEST_REPORTER_ID=6e88909a884f0304d049dbe9e4d7261af2ae104c540510edf967a75f96f453bc
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
@@ -15,11 +15,12 @@ before_script:
   - psql -c 'create database barefootnomad_test;' -U postgres
   - npm run pre-test
 script:
+  - npm run pre-test
   - npm run test
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 cache:
   directories:
-    - "node_modules" 
+    - "node_modules"
 after_success:
 - npm run coverage
