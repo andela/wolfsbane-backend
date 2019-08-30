@@ -37,7 +37,11 @@ export const userLogin = [
   check('email', 'email is invalid, please provide a valid mail')
     .isEmail()
     .not()
-    .isEmpty()
+    .isEmpty(),
+  check('password', 'password should be at least 6 characters')
+    .isLength({ min: 6 })
+    .not()
+    .isEmpty(),
 ];
 
 export const forgotPassword = [

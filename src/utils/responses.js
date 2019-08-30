@@ -4,6 +4,13 @@ const messages = {
     success: 'User Created Successfully',
     error: 'Could not sign up user try again',
     conflict: 'User with that email already exist'
+  },
+  signIn: {
+    success: 'Successfully Signed In',
+    notfound: 'User Cannot be found',
+    error: 'Could not sign in user try again',
+    invalid: 'Invalid Credentials',
+    unverified: 'Email not verified, check your mail to verify'
   }
 };
 

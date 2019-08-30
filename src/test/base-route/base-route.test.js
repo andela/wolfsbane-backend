@@ -14,7 +14,7 @@ describe('Base Route Test ', () => {
     chai.request(server).get(entryRoute).end((error, response) => {
       if (error) throw Error(`Error making test request ${entryRoute}`);
       response.should.have.status(status.success);
-      response.body.message.should.equal('Welcome to Wolfsbane');
+      response.body.message.should.equal('Welcome to Wolfsbane server');
       done();
     });
   });

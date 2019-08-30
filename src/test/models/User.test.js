@@ -1,3 +1,4 @@
+
 import chai from 'chai';
 import {
   sequelize, dataTypes, checkModelName, checkPropertyExists
