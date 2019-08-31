@@ -14,22 +14,22 @@ describe('Test for Profile Model', () => {
   const Profile = ProfileModel(sequelize, dataTypes);
   const profiles = new Profile();
 
-  checkModelName(Profile)('profiles');
+  checkModelName(Profile)('Profiles');
 
   context('properties', () => {
-    ['userId', 'phoneNumber', 'departmentId', 'role', 'jobDescription', 'imageUrl', 'isVerified'].forEach(
+    ['userId', 'phoneNumber', 'departmentId', 'role', 'jobDescription', 'imageUrl'].forEach(
       checkPropertyExists(profiles)
     );
   });
   context('associations', () => {
-    const departments = 'the department the user profile belongs to';
+    const Departments = 'the department the user profile belongs to';
 
     before(() => {
-      Profile.associate({ departments });
+      Profile.associate({ Departments });
     });
 
     it('defined a belongsTo association with Department', () => {
-      expect(Profile.belongsTo).to.have.been.calledWith(departments);
+      expect(Profile.belongsTo).to.have.been.calledWith(Departments);
     });
   });
 });

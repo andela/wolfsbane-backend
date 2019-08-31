@@ -4,7 +4,8 @@
   "description": "A travel booking server",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test && nyc --reporter=html --reporter=text mocha src/test/index.test --require @babel/register --recursive --exit || true",
+    "pre-test": "cross-env NODE_ENV=test npm run migrate",
+    "test": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha src/test/index.test --require @babel/register --recursive --exit || true",
     "start": "node ./src/index.js",
     "start:dev": "cross-env NODE_ENV=development nodemon --exec babel-node ./src/index.js",
     "coverage": "nyc report --reporter=text-lcov --reporter=lcov",

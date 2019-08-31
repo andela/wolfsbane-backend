@@ -1,9 +1,9 @@
 export default (sequelize, DataTypes) => {
-  const Department = sequelize.define('Departments', {
-    name: {
+  const Comment = sequelize.define('Comments', {
+    comment: {
       type: DataTypes.STRING,
       allowNull: false
-    },
+    }
   }, {});
-  return Department;
+  return Comment;
 };

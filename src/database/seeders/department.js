@@ -1,6 +1,6 @@
 export default {
   up: queryInterface => queryInterface.bulkInsert(
-    'departments',
+    'Departments',
     [
       {
         name: 'Software Engineering'
@@ -12,5 +12,5 @@ export default {
     {}
   ),
 
-  down: queryInterface => queryInterface.bulkDelete('departments', null, {})
+  down: queryInterface => queryInterface.bulkDelete('Departments', null, {})
 };

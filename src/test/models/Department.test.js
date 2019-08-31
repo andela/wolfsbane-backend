@@ -11,7 +11,7 @@ describe('Test for Department Model', () => {
   const Department = DepartmentModel(sequelize, dataTypes);
   const department = new Department();
 
-  checkModelName(Department)('departments');
+  checkModelName(Department)('Departments');
 
   context('properties', () => {
     ['name'].forEach(checkPropertyExists(department));

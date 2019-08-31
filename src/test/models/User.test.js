@@ -14,20 +14,26 @@ describe('Test for User Model', () => {
   const User = UserModel(sequelize, dataTypes);
   const users = new User();
 
-  checkModelName(User)('users');
+  checkModelName(User)('Users');
 
   context('properties', () => {
-    ['firstName', 'lastName', 'email', 'password'].forEach(checkPropertyExists(users));
+    ['firstName', 'lastName', 'email', 'password', 'isVerified'].forEach(checkPropertyExists(users));
   });
   context('associations', () => {
-    const profiles = 'the user profile';
+    const Profiles = 'the user profile';
+    const Requests = 'the user that makes a request';
 
     before(() => {
-      User.associate({ profiles });
+      User.associate({ Profiles });
+      User.associate({ Requests });
     });
 
     it('defined a hasOne association with Profile', () => {
-      expect(User.hasOne).to.have.been.calledWith(profiles);
+      expect(User.hasOne).to.have.been.calledWith(Profiles);
+    });
+
+    it('defined a hasMany association with Requests', () => {
+      expect(User.hasMany).to.have.been.calledWith(Requests, { as: 'userRequests', foreignKey: 'userId' });
     });
   });
 });

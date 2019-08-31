@@ -8,13 +8,13 @@ import {
 const registerUser = async (req, res) => {
   try {
     const { email } = req.body;
-    const userExits = await models.users.findOne({ where: { email } });
+    const userExits = await models.Users.findOne({ where: { email } });
     if (userExits) {
       return conflictResponse(res, status.conflict, messages.signUp.conflict);
     }
 
     req.body.password = await hashPassword(req.body.password);
-    const user = await models.users.create(req.body);
+    const user = await models.Users.create(req.body);
     const response = user.toJSON();
 
     delete response.password;

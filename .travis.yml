@@ -14,6 +14,7 @@ before_script:
   - ./cc-test-reporter before-build
   - psql -c 'create database travis_ci_test;' -U postgres
 script:
+  - npm run pre-test
   - npm run test
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
