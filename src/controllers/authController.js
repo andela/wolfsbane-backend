@@ -1,5 +1,5 @@
 import passport from 'passport';
-import { generateUserToken } from '../utils';
+import { generateToken } from '../utils';
 import passportConfIgnored from '../config/passport';
 
 /**
@@ -18,7 +18,8 @@ export const callback = provider => (req, res, next) => {
       if (err || !user) return res.status(500).json({ status: 500, message: 'Registration unsuccessful. Please try again later.' });
       
       // process successfully authenticated and registered user
-      const token = generateUserToken(user);
+      const { id: userId } = user;
+      const token = generateToken({ userId });
       res.status(res.statusCode).json({ status: res.statusCode, token });
     }
   )(req, res, next);

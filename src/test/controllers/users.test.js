@@ -1,11 +1,18 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import faker from 'faker';
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
 import server from '../../index';
+import models from '../../models';
+import { UsersController } from '../../controllers';
 import { status, messages } from '../../utils';
 
+chai.use(sinonChai);
 chai.use(chaiHttp);
 chai.should();
+const { expect } = chai;
+const { registerUser } = UsersController;
 
 const signUpRoute = '/api/v1/users/signup';
 
@@ -88,5 +95,20 @@ describe('User Registration test', () => {
         res.body.should.have.property('message').eql(messages.signUp.conflict);
         done(err);
       });
+  });
+  afterEach(() => sinon.restore());
+  it('fakes a server error during user registration', async () => {
+    const req = {
+      body: dummyUser
+    };
+    const res = {
+      status: () => {},
+      json: () => {},
+    };
+    sinon.stub(res, 'status').returnsThis();
+    sinon.stub(models.Users, 'findOne').throws();
+
+    await registerUser(req, res);
+    expect(res.status).to.have.been.calledWith(500);
   });
 });

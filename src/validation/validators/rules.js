@@ -1,4 +1,4 @@
-import { check } from 'express-validator';
+import { check, body } from 'express-validator';
 
 // add validation rules here.
 
@@ -38,4 +38,21 @@ export const userLogin = [
     .isEmail()
     .not()
     .isEmpty()
+];
+
+export const forgotPassword = [
+  check('email', 'Please provide a valid email')
+    .isEmail()
+    .not()
+    .isEmpty()
+];
+
+export const resetPassword = [
+  check('password', 'password should be at least 6 characters').isLength({ min: 6 }),
+  body('confirmPassword').custom((value, { req }) => {
+    if (value !== req.body.password) {
+      throw new Error('Password confirmation does not match');
+    }
+    return true;
+  })
 ];

@@ -1,6 +1,7 @@
 import './base-route/base-route.test';
 import './controllers/users.test';
 import './controllers/socialAuth.test';
+import './controllers/resetpassword.test';
 import './models/Department.test';
 import './models/Profile.test';
 import './models/Accomodation.test';
@@ -10,3 +11,6 @@ import './models/Room.test';
 import './models/Trip.test';
 import './models/User.test';
 import './validation/validate.test';
+import './utils/bcrypt.test';
+import './utils/responses.test';
+import './utils/jwt.test';

@@ -1,3 +1,5 @@
-import registerUser from './users';
+import UsersController from './users';
+import ResetPasswordController from './resetPassword';
 
-export default registerUser;
+
+export { UsersController, ResetPasswordController };

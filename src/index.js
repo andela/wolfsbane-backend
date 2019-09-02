@@ -16,7 +16,7 @@ app.use(express.json());
 
 const isProduction = process.env.NODE_ENV === 'production';
 
-// Test route
+
 app.get('/', (req, res) => res.json({ status: res.statusCode, message: 'Welcome to Wolfsbane' }));
 
 app.use(router);
