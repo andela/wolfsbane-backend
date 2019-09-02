@@ -18,4 +18,11 @@ describe('Base Route Test ', () => {
       done();
     });
   });
+  
+  it('should return 404 for a non-found route', (done) => {
+    chai.request(server).get('/badRoute').end((error, response) => {
+      response.should.have.status(404);
+      done();
+    });
+  });
 });

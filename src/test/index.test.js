@@ -4,6 +4,7 @@ import './controllers/socialAuth.test';
 import './controllers/resetpassword.test';
 import './controllers/accommodation.test';
 import './controllers/room.test';
+import './controllers/profile.test';
 import './models/Department.test';
 import './models/Profile.test';
 import './models/Accommodation.test';

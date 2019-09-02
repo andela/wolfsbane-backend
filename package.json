@@ -77,8 +77,8 @@
       "**/src/utils/emailTemplates/**",
       "**src/database/migrations/**",
       "**src/database/seeders/**",
-      "**src/models/**"
-    ],
-    "all": true
+      "**src/models/**",
+      "**src/test/**"
+    ]
   }
 }

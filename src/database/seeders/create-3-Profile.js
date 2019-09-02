@@ -14,6 +14,7 @@ export default {
         id: '7bfd92e6-ac4c-46ee-acc3-14fd70d9c032',
         userId: 'e71c28fd-73d8-4d92-9125-ab3d022093b0',
         departmentId: '36da1ce3-8e1f-4b0f-8e15-1189d8231ef2',
+        role: 'Manager',
         createdAt: new Date(),
         updatedAt: new Date()
       },

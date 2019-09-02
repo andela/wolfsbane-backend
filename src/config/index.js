@@ -3,8 +3,6 @@ import { config } from 'dotenv';
 config();
 
 export default {
-  secret:
-    process.env.NODE_ENV === 'production' ? process.env.SECRET : 'secret',
   oauth: {
     google: {
       clientID: process.env.GOOGLE_CLIENT_ID,

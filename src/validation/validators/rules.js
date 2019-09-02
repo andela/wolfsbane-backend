@@ -27,6 +27,11 @@ const checkUuid = (input, message) => param(input)
   .isEmpty()
   .matches(uuidRegex)
   .withMessage(message);
+
+export const checkUserId = [
+  checkUuid('userId', 'Invalid user Id')
+];
+
 export const userRegister = [
   check('firstName')
     .matches(nameRegex)

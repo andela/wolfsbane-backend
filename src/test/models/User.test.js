@@ -21,18 +21,12 @@ describe('Test for User Model', () => {
     ['firstName', 'lastName', 'email', 'password', 'isVerified'].forEach(checkPropertyExists(users));
   });
   context('associations', () => {
-    const Profiles = 'the user profile';
     const Requests = 'the user that makes a request';
     const Reaction = 'the reaction of the user to an accomodation facility';
 
     before(() => {
-      User.associate({ Profiles });
       User.associate({ Requests });
       User.associate({ Reaction });
-    });
-
-    it('defined a hasOne association with Profile', () => {
-      expect(User.hasOne).to.have.been.calledWith(Profiles);
     });
 
     it('defined a hasMany association with Requests', () => {

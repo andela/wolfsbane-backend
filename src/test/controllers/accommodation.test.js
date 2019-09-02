@@ -383,7 +383,7 @@ describe('Test for Accommodation Endpoints', () => {
             .get(`${accommodationRoute}/`)
             .set('Authorization', token)
             .end((error, response) => {
-              expect(response).to.have.status(500);
+              expect(response).to.have.status(401);
               expect(response.body).to.have.property('status');
               expect(response.body).to.have.property('message');
               done();
