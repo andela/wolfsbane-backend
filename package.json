@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "pre-test": "cross-env NODE_ENV=test npm run migrate",
-    "test": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha src/test/index.test --require @babel/register --recursive --exit || true",
+    "test": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha src/test/index.test --timeout 10000 --require @babel/register --recursive --exit || true",
     "start": "node ./src/index.js",
     "start:dev": "cross-env NODE_ENV=development nodemon --exec babel-node ./src/index.js",
     "coverage": "nyc report --reporter=text-lcov --reporter=lcov",
@@ -26,6 +26,8 @@
     "express-validator": "^6.1.1",
     "jsonwebtoken": "^8.3.0",
     "passport": "^0.4.0",
+    "passport-facebook": "^3.0.0",
+    "passport-google-oauth": "^2.0.0",
     "pg": "^7.12.1",
     "pg-hstore": "^2.3.3",
     "sequelize": "^5.15.0"

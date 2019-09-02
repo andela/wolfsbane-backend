@@ -1,27 +1,29 @@
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-const mongoose = require('mongoose');
+import passport from 'passport';
+import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
+import { Strategy as FacebookStrategy } from 'passport-facebook';
+import MockStrategy from './mockStrategy';
+import config from './index';
+import { strategyCallback, getCallbackUrls } from '../utils';
 
-const User = mongoose.model('User');
+const {
+  testEnvironment, googleCallbackUrl, facebookCallbackUrl
+} = getCallbackUrls;
 
-passport.use(
-  new LocalStrategy(
-    {
-      usernameField: 'user[email]',
-      passwordField: 'user[password]'
-    },
-    (email, password, done) => {
-      User.findOne({ email })
-        .then((user) => {
-          if (!user || !user.validPassword(password)) {
-            return done(null, false, {
-              errors: { 'email or password': 'is invalid' }
-            });
-          }
+// If test environment, use mocked user and mocked strategy
+if (testEnvironment) {
+  passport.use(new MockStrategy('google', strategyCallback));
+  passport.use(new MockStrategy('facebook', strategyCallback));
+} else { // use actual strategy of social platforms
+  passport.use(new GoogleStrategy({
+    clientID: config.oauth.google.clientID,
+    clientSecret: config.oauth.google.clientSecret,
+    callbackURL: googleCallbackUrl,
+  }, strategyCallback));
 
-          return done(null, user);
-        })
-        .catch(done);
-    }
-  )
-);
+  passport.use(new FacebookStrategy({
+    clientID: config.oauth.facebook.clientID,
+    clientSecret: config.oauth.facebook.clientSecret,
+    callbackURL: facebookCallbackUrl,
+    profileFields: ['email', 'name']
+  }, strategyCallback));
+}
