@@ -69,7 +69,7 @@ export default class UsersController {
       if (!isPasswordValid) {
         return errorResponse(res, status.unauthorized, messages.signIn.invalid);
       }
-  
+
       const response = {
         firstName,
         lastName,

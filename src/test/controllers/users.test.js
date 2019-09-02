@@ -107,8 +107,8 @@ describe('User Registration test', () => {
       body: dummyUser
     };
     const res = {
-      status: () => {},
-      json: () => {},
+      status: () => { },
+      json: () => { },
     };
     sinon.stub(res, 'status').returnsThis();
     sinon.stub(models.Users, 'findOne').throws();
@@ -182,15 +182,15 @@ describe('User Sign In test', () => {
         done(err);
       });
   });
-  
+
 
   it('it fakes response if user password is not valid', async () => {
     const req = {
       body: dummyUser
     };
     const res = {
-      status: () => {},
-      json: () => {},
+      status: () => { },
+      json: () => { },
     };
     const user = {
       id: 'ksd095',
@@ -211,8 +211,8 @@ describe('User Sign In test', () => {
       body: dummyUser
     };
     const res = {
-      status: () => {},
-      json: () => {},
+      status: () => { },
+      json: () => { },
     };
     const user = {
       id: 'ksd095',
@@ -236,8 +236,8 @@ describe('User Sign In test', () => {
       body: dummyUser
     };
     const res = {
-      status: () => {},
-      json: () => {},
+      status: () => { },
+      json: () => { },
     };
     sinon.stub(res, 'status').returnsThis();
     sinon.stub(models.Users, 'findOne').throws();
@@ -254,11 +254,11 @@ describe('User account confirmation test', () => {
     expect(res).to.have.status(403);
     expect(res.body).to.have.property('message').to.equal('Account confirmation link Invalid');
   });
-  
+
   it('fakes a successful account verication', async () => {
     const res = {
-      status: () => {},
-      json: () => {},
+      status: () => { },
+      json: () => { },
     };
     const req = {
       query: {

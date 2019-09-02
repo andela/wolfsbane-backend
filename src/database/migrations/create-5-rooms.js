@@ -14,15 +14,19 @@ export default {
       type: Sequelize.INTEGER,
       allowNull: false
     },
-    accomodationId: {
+    image: {
+      type: Sequelize.STRING,
+      allowNull: true
+    },
+    accommodationId: {
       type: Sequelize.DataTypes.UUID,
       allowNull: false,
       references: {
-        model: 'Accomodations',
+        model: 'Accommodations',
         key: 'id',
       },
       onUpdate: 'CASCADE',
-      onDelete: 'SET NULL'
+      onDelete: 'CASCADE'
     },
     createdAt: {
       allowNull: false,

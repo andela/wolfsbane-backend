@@ -1,5 +1,5 @@
 export default {
-  up: (queryInterface, Sequelize) => queryInterface.createTable('Accomodations', {
+  up: (queryInterface, Sequelize) => queryInterface.createTable('Accommodations', {
     id: {
       allowNull: false,
       primaryKey: true,
@@ -29,5 +29,5 @@ export default {
       defaultValue: new Date()
     }
   }),
-  down: (queryInterface, Sequelize) => queryInterface.dropTable('Accomodations')
+  down: (queryInterface, Sequelize) => queryInterface.dropTable('Accommodations')
 };
