@@ -4,9 +4,12 @@
   "description": "A travel booking server",
   "main": "index.js",
   "scripts": {
+    "clean": "rm -rf build && mkdir build",
+    "build-babel": "babel -d ./build ./src -s",
+    "build": "npm run clean && npm run build-babel",
     "pre-test": "cross-env NODE_ENV=test npm run migrate",
     "test": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha src/test/index.test --timeout 10000 --require @babel/register --recursive --exit || true",
-    "start": "node ./src/index.js",
+    "start": "npm run build && node ./build/index.js",
     "start:dev": "cross-env NODE_ENV=development nodemon --exec babel-node ./src/index.js",
     "coverage": "nyc report --reporter=text-lcov --reporter=lcov",
     "migrate": "node_modules/.bin/sequelize db:migrate",
