@@ -8,5 +8,4 @@ const router = express.Router();
 router.use('/auth', authRoutes);
 router.use('/users', userRoute);
 router.use('/', resetPasswordRoute);
-
 export default router;
