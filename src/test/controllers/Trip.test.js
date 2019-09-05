@@ -40,25 +40,161 @@ describe('Test for Trip endpoints', () => {
         .send(login)
         .end((logError, logResponse) => {
           const token = `Bearer ${logResponse.body.data.token}`;
-          const trip = {
-            origin: 'lagos',
-            destination: 'nairobi',
-            departureDate: '2019-09-09 01:33:28.862+00',
-            travelReasons: 'To get away.',
-            typeOfTrip: 'Return',
-            roomId: 'b098fb80-72c7-4a9a-a35a-634692384d89',
-            accommodationId: '2b770fbc-76e6-4b5a-afab-882759fd1f06'
+          const tripInfo = {
+            typeOfTrip: 'One Way',
+            trip: [
+              {
+                origin: 'lagos',
+                destination: 'nairobi',
+                departureDate: '2019-09-09 01:33:28.862+00',
+                travelReasons: 'To get away.',
+                roomId: 'b098fb80-72c7-4a9a-a35a-634692384d89',
+                accommodationId: '2b770fbc-76e6-4b5a-afab-882759fd1f06'
+              }
+            ]
           };
           chai.request(server)
             .post('/api/v1/trip/47db7b6c-394f-452b-a09d-19bff77f84d9')
             .set('Authorization', token)
-            .send(trip)
+            .send(tripInfo)
             .end((error, response) => {
               expect(response).to.have.status(201);
               expect(response.body).to.have.property('status');
               done();
             });
         });
+    });
+    it('Should be able to create Multi-City trip', (done) => {
+      chai
+        .request(server)
+        .post(signinRoute)
+        .send(login)
+        .end((logError, logResponse) => {
+          const token = `Bearer ${logResponse.body.data.token}`;
+          const tripInfo = {
+            typeOfTrip: 'Multi-City',
+            trip: [
+              {
+                origin: 'lagos',
+                destination: 'nairobi',
+                departureDate: '2019-09-09 01:33:28.862+00',
+                travelReasons: 'To get away.',
+                roomId: 'b098fb80-72c7-4a9a-a35a-634692384d89',
+                accommodationId: '2b770fbc-76e6-4b5a-afab-882759fd1f06'
+              },
+              {
+                origin: 'nairobi',
+                destination: 'kampala',
+                departureDate: '2019-09-09 01:33:28.862+00',
+                travelReasons: 'To get away.',
+                roomId: 'b098fb80-72c7-4a9a-a35a-634692384d89',
+                accommodationId: '2b770fbc-76e6-4b5a-afab-882759fd1f06'
+              },
+              {
+                origin: 'kampala',
+                destination: 'accra',
+                departureDate: '2019-09-09 01:33:28.862+00',
+                travelReasons: 'To get away.',
+                roomId: 'b098fb80-72c7-4a9a-a35a-634692384d89',
+                accommodationId: '2b770fbc-76e6-4b5a-afab-882759fd1f06'
+              }
+            ]
+          };
+          chai.request(server)
+            .post('/api/v1/trip/47db7b6c-394f-452b-a09d-19bff77f84d9')
+            .set('Authorization', token)
+            .send(tripInfo)
+            .end((error, response) => {
+              expect(response).to.have.status(201);
+              expect(response.body).to.have.property('status');
+              done();
+            });
+        });
+    });
+    it('Should validate that request belongs to a user before creating trip', (done) => {
+      chai
+        .request(server)
+        .post(signinRoute)
+        .send(login)
+        .end((logError, logResponse) => {
+          const token = `Bearer ${logResponse.body.data.token}`;
+          const invalidRequestId = 'b5c6e498-aaf9-4018-8a44-3a9e7431c81a';
+          const tripInfo = {
+            typeOfTrip: 'Return',
+            trip: [
+              {
+                origin: 'lagos',
+                destination: 'nairobi',
+                departureDate: '2019-09-09 01:33:28.862+00',
+                returnDate: '2019-09-09 01:33:28.862+00',
+                travelReasons: 'To get away.',
+                roomId: 'b098fb80-72c7-4a9a-a35a-634692384d89',
+                accommodationId: '2b770fbc-76e6-4b5a-afab-882759fd1f06'
+              }
+            ]
+          };
+          chai.request(server)
+            .post(`/api/v1/trip/${invalidRequestId}`)
+            .set('Authorization', token)
+            .send(tripInfo)
+            .end((error, response) => {
+              expect(response).to.have.status(401);
+              expect(response.body).to.have.property('status');
+              expect(response.body.message).to.equal('Access Denied');
+              done();
+            });
+        });
+    });
+    it('fakes a server error when validating request', async () => {
+      const req = {
+        params: {
+          requestId: '00000000-0000-0000-0000-'
+        },
+        body: {
+          origin: 'lagos',
+          destination: 'Botswana',
+          departureDate: '2019-09-09 01:33:28.862+00',
+          travelReasons: 'To get away.',
+          typeOfTrip: 'Return',
+          roomId: 'b098fb80-72c7-4a9a-a35a-634692384d89',
+          accommodationId: '2b770fbc-76e6-4b5a-afab-882759fd1f06'
+        }
+      };
+      const res = {
+        status: () => { },
+        json: () => { },
+      };
+      sinon.stub(res, 'status').returnsThis();
+      sinon.stub(models.Requests, 'findByPk').throws();
+
+      await createTrip(req, res);
+      expect(res.status).to.have.been.calledWith(500);
+    });
+    it('Should return an error if request does not exist', async () => {
+      const req = {
+        params: {
+          requestId: '00000000-0000-0000-0000-'
+        },
+        body: {
+          origin: 'lagos',
+          destination: 'Botswana',
+          departureDate: '2019-09-09 01:33:28.862+00',
+          travelReasons: 'To get away.',
+          typeOfTrip: 'Return',
+          roomId: 'b098fb80-72c7-4a9a-a35a-634692384d89',
+          accommodationId: '2b770fbc-76e6-4b5a-afab-882759fd1f06'
+        },
+        user: { userId: 'b098fb80-72c7-4a9a-a35a-634692384d89' }
+      };
+      const res = {
+        status: () => { },
+        json: () => { },
+      };
+      sinon.stub(res, 'status').returnsThis();
+      sinon.stub(models.Requests, 'findByPk').returns(undefined);
+
+      await Authenticate.verifyRequestOwner(req, res);
+      expect(res.status).to.have.been.calledWith(404);
     });
     it('fakes a server error when creating a trip', async () => {
       const req = {
@@ -111,7 +247,7 @@ describe('Test for Trip endpoints', () => {
       sinon.stub(Requests, 'findOne').returns(true);
       sinon.stub(Trips, 'findOne').returns(true);
       sinon.stub(models.Trips, 'update').returns(true);
-  
+
       await updateTrip(req, res);
       expect(res.status).to.have.been.calledWith(200);
     });
@@ -138,7 +274,7 @@ describe('Test for Trip endpoints', () => {
       sinon.stub(Requests, 'findOne').throws();
       sinon.stub(Trips, 'findOne').throws();
       sinon.stub(models.Trips, 'update').throws();
-  
+
       await updateTrip(req, res);
       expect(res.status).to.have.been.calledWith(422);
     });
@@ -162,7 +298,7 @@ describe('Test for Trip endpoints', () => {
       };
       sinon.stub(res, 'status').returnsThis();
       sinon.stub(Requests, 'findByPk').returns({ userId: 'abab73cb-2455-4e34-9bad-55973b30bc48', status: 'pending' });
-  
+
       await updateTrip(req, res);
       expect(res.status).to.have.been.calledWith(401);
     });
@@ -186,7 +322,7 @@ describe('Test for Trip endpoints', () => {
       };
       sinon.stub(res, 'status').returnsThis();
       sinon.stub(models.Trips, 'update').throws();
-  
+
       await updateTrip(req, res);
       expect(res.status).to.have.been.calledWith(500);
     });
@@ -257,7 +393,7 @@ describe('Test for Trip endpoints', () => {
       sinon.stub(res, 'status').returnsThis();
       sinon.stub(models.Trips, 'findOne').throws();
       sinon.stub(models.Requests, 'findOne').throws();
-  
+
       await Authenticate.verifyUser(req, res);
       expect(res.status).to.have.been.calledWith(500);
       await Authenticate.verifyRequest(req, res);

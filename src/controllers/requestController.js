@@ -36,7 +36,7 @@ export default class RequestController {
       return errorResponse(res, status.error, messages.requests.error);
     }
   }
-  
+
 
   /**
    * @method getAllTripRequests

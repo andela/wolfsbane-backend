@@ -8,7 +8,7 @@ export default {
     },
     origin: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: false
     },
     destination: {
       type: Sequelize.STRING,
@@ -35,7 +35,7 @@ export default {
       allowNull: false,
       references: {
         model: 'Requests',
-        key: 'id',
+        key: 'id'
       },
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE'
@@ -45,20 +45,20 @@ export default {
       allowNull: false,
       references: {
         model: 'Accommodations',
-        key: 'id',
+        key: 'id'
       },
       onUpdate: 'CASCADE',
       onDelete: 'SET NULL'
     },
     roomId: {
       type: Sequelize.DataTypes.UUID,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'Rooms',
-        key: 'id',
+        key: 'id'
       },
       onUpdate: 'CASCADE',
-      onDelete: 'SET NULL'
+      onDelete: 'CASCADE'
     },
     createdAt: {
       allowNull: false,

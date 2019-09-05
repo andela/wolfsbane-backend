@@ -1,4 +1,5 @@
 import { hashPassword } from '../../utils';
+
 export default {
   up: queryInterface => queryInterface.bulkInsert(
     'Users',
@@ -64,6 +65,5 @@ export default {
     ],
     {}
   ),
-
   down: queryInterface => queryInterface.bulkDelete('Users', null, {})
 };

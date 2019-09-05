@@ -72,6 +72,7 @@ const forgeResponse = (res, statusCode, message, data = null, token = null) => {
   return res.status(statusCode).json(response);
 };
 
+// eslint-disable-next-line max-len
 const successResponse = (res, statusCode, message, userData, token) => forgeResponse(res, statusCode, message, userData, token);
 
 const errorResponse = (res, statusCode, message) => forgeResponse(res, statusCode, message);

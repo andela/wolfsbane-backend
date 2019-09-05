@@ -7,8 +7,8 @@ const { validate, Authenticate } = middlewares;
 
 const { createTrip, updateTrip } = TripController;
 
-const { verifyToken, verifyUser } = Authenticate;
+const { verifyToken, verifyUser, verifyRequestOwner } = Authenticate;
 
-tripRoutes.post('/:requestId', verifyToken, verifyUser, validate('TripRequest'), createTrip);
+tripRoutes.post('/:requestId', verifyToken, verifyUser, validate('TripRequest'), verifyRequestOwner, createTrip);
 tripRoutes.put('/:requestId/:tripId', verifyToken, verifyUser, updateTrip);
 export default tripRoutes;

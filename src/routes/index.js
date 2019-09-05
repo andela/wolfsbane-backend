@@ -18,5 +18,4 @@ router.use('/users', userRoute);
 router.use('/profiles', profileRoutes);
 router.use('/request', requestRoutes);
 router.use('/trip', tripRoutes);
-
 export default router;

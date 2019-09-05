@@ -9,14 +9,14 @@ export default {
     status: {
       type: Sequelize.ENUM('pending', 'rejected', 'approved'),
       allowNull: false,
-      defaultValue: 'pending',
+      defaultValue: 'pending'
     },
     userId: {
       type: Sequelize.DataTypes.UUID,
       allowNull: false,
       references: {
         model: 'Users',
-        key: 'id',
+        key: 'id'
       },
       onUpdate: 'CASCADE',
       onDelete: 'SET NULL'
@@ -26,7 +26,7 @@ export default {
       allowNull: false,
       references: {
         model: 'Departments',
-        key: 'id',
+        key: 'id'
       },
       onUpdate: 'CASCADE',
       onDelete: 'SET NULL'

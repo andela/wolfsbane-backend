@@ -14,7 +14,7 @@ import './models/Room.test';
 import './models/Reaction.test';
 import './models/Trip.test';
 import './models/User.test';
-import './validation/validate.test';
+import './middlewares/validate.test';
 import './utils/bcrypt.test';
 import './utils/responses.test';
 import './utils/jwt.test';

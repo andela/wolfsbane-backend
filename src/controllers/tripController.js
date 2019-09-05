@@ -2,10 +2,11 @@ import TripService from '../services/tripService';
 import {
   messages, status, successResponse, errorResponse
 } from '../utils/index';
+import formatTrip from '../utils/formatTrip';
 import models from '../models';
 
 const { Requests } = models;
-
+const { createMultiTrip, createSingleTrip } = TripService;
 /**
  * @class TripController
  * @description Controllers for Trips
@@ -21,24 +22,23 @@ export default class TripController {
    */
   static async createTrip(req, res) {
     const { requestId } = req.params;
-    const {
-      origin, destination, departureDate, returnDate,
-      travelReasons, typeOfTrip, roomId, accommodationId
-    } = req.body;
-    const options = {
-      requestId,
-      origin,
-      destination,
-      departureDate,
-      returnDate,
-      travelReasons,
-      typeOfTrip,
-      roomId,
-      accommodationId
-    };
+    const { typeOfTrip, trip: trips } = req.body;
     try {
-      const result = await TripService.createTrip(options);
-      return successResponse(res, status.created, messages.requests.success, result);
+      if (typeOfTrip === 'Multi-City' && trips.length > 1) {
+        const newTrips = trips.map(trip => formatTrip({ ...trip, requestId, typeOfTrip }));
+
+        const result = await createMultiTrip(newTrips);
+        return successResponse(res, status.created, messages.requests.success, result);
+      }
+
+      if ((typeOfTrip === 'Return' || typeOfTrip === 'One Way') && trips.length === 1) {
+        const singleTrip = trips[0];
+        const newTrip = formatTrip({ ...singleTrip, requestId, typeOfTrip });
+        const result = await createSingleTrip(newTrip);
+        return successResponse(res, status.created, messages.requests.success, result);
+      }
+      const errRes = 'Invalid typeOfTrip or number of trips';
+      return errorResponse(res, status.bad, errRes);
     } catch (error) {
       return errorResponse(res, status.error, messages.requests.error);
     }
@@ -55,13 +55,7 @@ export default class TripController {
     const { requestId, tripId } = req.params;
     const { userId } = req.user;
     try {
-      const {
-        origin, destination, departureDate, returnDate,
-        travelReasons, typeOfTrip, roomId, accommodationId,
-      } = req.body;
-      const options = {
-        origin, destination, departureDate, returnDate, travelReasons, typeOfTrip, roomId, accommodationId,
-      };
+      const update = formatTrip(req.body);
       const requests = await Requests.findByPk(requestId);
       if (requests.status !== 'pending') {
         return errorResponse(res, status.unprocessable, messages.updateRequests.access);
@@ -70,7 +64,7 @@ export default class TripController {
       if (requests.userId !== userId) {
         return errorResponse(res, status.unauthorized, messages.updateTrips.unauthorized);
       }
-      const result = await TripService.updateTrip(tripId, options);
+      const result = await TripService.updateTrip(tripId, update);
       return successResponse(res, status.success, messages.updateRequests.success, result);
     } catch (error) {
       return errorResponse(res, status.error, messages.updateRequests.error);
