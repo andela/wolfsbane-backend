@@ -1,9 +1,11 @@
 import models from '../models';
 import {
   hashPassword, successResponse,
-  errorResponse, Jwt
+  errorResponse, Jwt, getCallbackUrls
 } from '../utils';
-// import sendMail from '../utils/sendGrid';
+import sendEmail from '../services';
+
+const { baseUrl } = getCallbackUrls;
 
 /**
  * @class ResetPasswordController
@@ -29,11 +31,13 @@ export default class ResetPasswordController {
       if (!user) {
         return errorResponse(res, 404, 'No user with email');
       }
-      const { id: userId, password: passwordHash, createdAt } = user;
+      const {
+        id: userId, password: passwordHash, createdAt, firstName
+      } = user;
       const secret = `${passwordHash}-${createdAt}`;
       const token = await Jwt.generateToken({ userId }, secret);
-      const url = `${req.headers.host}/api/v1/resetpassword/${userId}?token=${token}`;
-      // await sendMail(email, 'passwordRecovery', url);
+      const url = `${baseUrl}/forgotpassword/${userId}?token=${token}`;
+      await sendEmail(email, 'passwordRecovery', { firstName, url });
       return res.status(200).json(url);
     } catch (error) {
       return errorResponse(res, 500, error.message);
