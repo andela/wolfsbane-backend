@@ -2,8 +2,12 @@
 import models from '../models';
 import {
   status, messages, hashPassword, generateToken,
-  successResponse, errorResponse, conflictResponse, Jwt, bcrypt,
+  successResponse, errorResponse, conflictResponse, Jwt, bcrypt, getCallbackUrls
 } from '../utils/index';
+import sendEmail from '../services/index';
+
+
+const { baseUrl } = getCallbackUrls;
 
 /**
  * @class UserController
@@ -20,7 +24,7 @@ export default class UsersController {
    */
   static async registerUser(req, res) {
     try {
-      const { email } = req.body;
+      const { email, firstName } = req.body;
       const userExits = await models.Users.findOne({ where: { email } });
       if (userExits) {
         return conflictResponse(res, status.conflict, messages.signUp.conflict);
@@ -33,6 +37,8 @@ export default class UsersController {
       delete response.password;
       const { id: userId } = user;
       const token = await generateToken({ userId });
+      const url = `${baseUrl}/users/confirmAccount?token=${token}`;
+      await sendEmail(email, 'confirmAccount', { firstName, url });
       return successResponse(res, status.created, messages.signUp.success, response, token);
     } catch (error) {
       return errorResponse(res, status.error, messages.signUp.error);
@@ -53,7 +59,6 @@ export default class UsersController {
       if (!user) {
         return errorResponse(res, status.unauthorized, messages.signIn.invalid);
       }
-      
       const {
         firstName, lastName, isVerified, id: userId
       } = user;

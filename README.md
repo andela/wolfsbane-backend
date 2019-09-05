@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/andela/wolfsbane-backend.svg?branch=develop)](https://travis-ci.org/andela/wolfsbane-backend)
+[![Coverage Status](https://coveralls.io/repos/github/andela/wolfsbane-backend/badge.svg?branch=develop)](https://coveralls.io/github/andela/wolfsbane-backend?branch=develop)
 [![Maintainability](https://api.codeclimate.com/v1/badges/eec3cfdc2df501237031/maintainability)](https://codeclimate.com/github/andela/wolfsbane-backend/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/eec3cfdc2df501237031/test_coverage)](https://codeclimate.com/github/andela/wolfsbane-backend/test_coverage)
 [![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)

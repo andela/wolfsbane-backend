@@ -6,7 +6,9 @@ import sinonChai from 'sinon-chai';
 import server from '../../index';
 import models from '../../models';
 import { UsersController } from '../../controllers';
-import { status, messages, Jwt, bcrypt,  } from '../../utils';
+import {
+  status, messages, Jwt, bcrypt,
+} from '../../utils';
 
 chai.use(sinonChai);
 chai.use(chaiHttp);
@@ -183,7 +185,7 @@ describe('User Sign In test', () => {
   afterEach(() => sinon.restore());
 
   it('it fakes response if user password is not valid', async () => {
-    const req = { 
+    const req = {
       body: dummyUser
     };
     const res = {
@@ -205,7 +207,7 @@ describe('User Sign In test', () => {
   });
 
   it('fakes a successful user sign in', async () => {
-    const req = { 
+    const req = {
       body: dummyUser
     };
     const res = {

@@ -14,3 +14,5 @@ import './validation/validate.test';
 import './utils/bcrypt.test';
 import './utils/responses.test';
 import './utils/jwt.test';
+import './utils/emailTemplatesFunction.test';
+import './services/autoMailer.test';

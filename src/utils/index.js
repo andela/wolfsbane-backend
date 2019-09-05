@@ -5,6 +5,7 @@ import * as bcrypt from './bcrypt';
 import Jwt from './jwt';
 import strategyCallback from './passportStrategyCallback';
 import getCallbackUrls from './getCallbackUrls';
+import emailTemplatesFunction from './emailTemplatesFunction';
 
 const { generateToken, verifyToken } = Jwt;
 const { hashPassword, comparePassword } = bcrypt;
@@ -23,4 +24,5 @@ export {
   conflictResponse,
   strategyCallback,
   getCallbackUrls,
+  emailTemplatesFunction,
 };

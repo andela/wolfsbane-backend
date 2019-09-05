@@ -23,7 +23,8 @@ describe('RESET PASSWORD', () => {
   after(() => request.close());
 
   context('FORGOT PASSWORD', () => {
-    it('should have a status 200 and send password reset link to the supplied email', async () => {
+    it('should have a status 200 and send password reset link to the supplied email', async function callBack() {
+      this.timeout(20000);
       const req = {
         body: {
           email: 'fakemail@mail.com'

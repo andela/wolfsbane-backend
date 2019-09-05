@@ -15,6 +15,7 @@ const googleCallbackUrl = `${baseUrl}/google/callback`;
 const facebookCallbackUrl = `${baseUrl}/facebook/callback`;
 
 export default {
+  baseUrl,
   testEnvironment,
   googleCallbackUrl,
   facebookCallbackUrl

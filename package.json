@@ -22,6 +22,7 @@
   "author": "Andela Simulations Programme",
   "license": "MIT",
   "dependencies": {
+    "@sendgrid/mail": "^6.4.0",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
@@ -58,5 +59,22 @@
     "sequelize-test-helpers": "^1.1.2",
     "sinon": "^7.4.1",
     "sinon-chai": "^3.3.0"
+  },
+  "nyc": {
+    "_comment": "Purpose of this part: to do code coverage within Mocha/Chai using NYC",
+    "register": "babel-register",
+    "include": [
+      "**/*.js",
+      "./*.js"
+    ],
+    "exclude": [
+      "**/node_modules/**",
+      "**/coverage/**",
+      "**/.nyc_output/**",
+      "**/src/utils/emailTemplates/**",
+      "**src/database/migrations/**",
+      "**src/database/seeders/**"
+    ],
+    "all": true
   }
 }
