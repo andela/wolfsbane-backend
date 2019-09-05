@@ -6,11 +6,11 @@ const testEnvironment = !(environment === 'development' || environment === 'stag
 const productionEnvironment = environment === 'production' || environment === 'staging';
 let baseUrl;
 
-if (productionEnvironment) baseUrl = 'https://barefootnomad10-staging.herokuapp.com/api/v1/auth';
-else baseUrl = 'http://localhost:3000/api/v1/auth';
+if (productionEnvironment) baseUrl = 'https://barefootnomad10-staging.herokuapp.com/api/v1';
+else baseUrl = 'http://localhost:3000/api/v1';
 
-const googleCallbackUrl = `${baseUrl}/google/callback`;
-const facebookCallbackUrl = `${baseUrl}/facebook/callback`;
+const googleCallbackUrl = `${baseUrl}/auth/google/callback`;
+const facebookCallbackUrl = `${baseUrl}/auth/facebook/callback`;
 
 export default {
   baseUrl,

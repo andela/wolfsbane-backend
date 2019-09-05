@@ -1,11 +1,9 @@
-
 import models from '../models';
+import sendEmail from '../services';
 import {
   status, messages, hashPassword, generateToken,
   successResponse, errorResponse, conflictResponse, Jwt, bcrypt, getCallbackUrls
 } from '../utils/index';
-import sendEmail from '../services/index';
-
 
 const { baseUrl } = getCallbackUrls;
 
@@ -24,7 +22,7 @@ export default class UsersController {
    */
   static async registerUser(req, res) {
     try {
-      const { email, firstName } = req.body;
+      const { email } = req.body;
       const userExits = await models.Users.findOne({ where: { email } });
       if (userExits) {
         return conflictResponse(res, status.conflict, messages.signUp.conflict);
@@ -35,7 +33,7 @@ export default class UsersController {
       const response = user.toJSON();
 
       delete response.password;
-      const { id: userId } = user;
+      const { id: userId, firstName } = user;
       const token = await generateToken({ userId });
       const url = `${baseUrl}/users/confirmAccount?token=${token}`;
       await sendEmail(email, 'confirmAccount', { firstName, url });
@@ -80,6 +78,28 @@ export default class UsersController {
       return successResponse(res, status.success, messages.signIn.success, response, token);
     } catch (error) {
       return errorResponse(res, status.error, messages.signIn.error);
+    }
+  }
+
+  /**
+   * @method confirmUser
+   * @description Method for account confirmation
+   * @param {object} req - The Request Object
+   * @param {object} res - The Response Object
+   * @returns {object} response body object
+   */
+  static async confirmUser(req, res) {
+    const { token } = req.query;
+    try {
+      const { userId } = await Jwt.verifyToken(token);
+      const userData = await models.Users.update({ isVerified: true }, {
+        where: { id: userId }
+      });
+      if (userData) {
+        return successResponse(res, 200, 'Verification successful. login to update your profile');
+      }
+    } catch (error) {
+      errorResponse(res, 403, 'Account confirmation link Invalid');
     }
   }
 }
