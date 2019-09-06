@@ -14,7 +14,7 @@ chai.use(sinonChai);
 chai.use(chaiHttp);
 chai.should();
 const { expect } = chai;
-const { registerUser, signInUser } = UsersController;
+const { registerUser, signInUser, confirmUser } = UsersController;
 
 const signUpRoute = '/api/v1/users/signup';
 const signInRoute = '/api/v1/users/signin';
@@ -26,6 +26,8 @@ const dummyUser = {
   email: faker.internet.email(),
   password: faker.internet.password(),
 };
+
+afterEach(() => sinon.restore());
 
 // User Registration Validation test
 describe('User Registration test', () => {
@@ -100,7 +102,6 @@ describe('User Registration test', () => {
         done(err);
       });
   });
-  afterEach(() => sinon.restore());
   it('fakes a server error during user registration', async () => {
     const req = {
       body: dummyUser
@@ -182,7 +183,6 @@ describe('User Sign In test', () => {
       });
   });
   
-  afterEach(() => sinon.restore());
 
   it('it fakes response if user password is not valid', async () => {
     const req = {
@@ -244,5 +244,35 @@ describe('User Sign In test', () => {
 
     await signInUser(req, res);
     expect(res.status).to.have.been.calledWith(status.error);
+  });
+});
+
+describe('User account confirmation test', () => {
+  it('should return an error a 403 error for invalid link', async () => {
+    const res = await chai.request(server)
+      .get('/api/v1/users/confirmAccount?token=098523jmks0-215-23kn55');
+    expect(res).to.have.status(403);
+    expect(res.body).to.have.property('message').to.equal('Account confirmation link Invalid');
+  });
+  
+  it('fakes a successful account verication', async () => {
+    const res = {
+      status: () => {},
+      json: () => {},
+    };
+    const req = {
+      query: {
+        token: 'klsngajg'
+      }
+    };
+    const userData = {
+      id: 'ksd095',
+    };
+    sinon.stub(res, 'status').returnsThis();
+    sinon.stub(Jwt, 'verifyToken').returns({ userId: 'ksd095' });
+    sinon.stub(models.Users, 'update').returns(userData);
+
+    await confirmUser(req, res);
+    expect(res.status).to.have.been.calledWith(200);
   });
 });

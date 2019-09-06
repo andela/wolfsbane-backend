@@ -13,13 +13,13 @@ import passportConfIgnored from '../config/passport';
 export const callback = provider => (req, res, next) => {
   passport.authenticate(
     provider,
-    (err, user) => {
+    async (err, user) => {
       // check if authentication returns an error
       if (err || !user) return res.status(500).json({ status: 500, message: 'Registration unsuccessful. Please try again later.' });
       
       // process successfully authenticated and registered user
       const { id: userId } = user;
-      const token = generateToken({ userId });
+      const token = await generateToken({ userId });
       res.status(res.statusCode).json({ status: res.statusCode, token });
     }
   )(req, res, next);
