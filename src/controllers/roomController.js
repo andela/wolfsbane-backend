@@ -54,6 +54,7 @@ class RoomController {
       }, { where: { id: roomId } });
       return successResponse(res, 200, 'Room updated');
     } catch (error) {
+      console.log(error);
       return errorResponse(res, 500, 'Error updating room');
     }
   }
@@ -75,6 +76,7 @@ class RoomController {
       await Rooms.destroy({ where: { id: roomId } });
       return successResponse(res, 200, 'Room deleted');
     } catch (error) {
+      console.log(error);
       return errorResponse(res, 500, 'Error deleting room');
     }
   }

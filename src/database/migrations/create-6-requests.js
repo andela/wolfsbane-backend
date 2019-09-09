@@ -11,16 +11,6 @@ export default {
       allowNull: false,
       defaultValue: 'pending',
     },
-    accommodationId: {
-      type: Sequelize.DataTypes.UUID,
-      allowNull: false,
-      references: {
-        model: 'Accommodations',
-        key: 'id',
-      },
-      onUpdate: 'CASCADE',
-      onDelete: 'SET NULL'
-    },
     userId: {
       type: Sequelize.DataTypes.UUID,
       allowNull: false,
@@ -30,6 +20,20 @@ export default {
       },
       onUpdate: 'CASCADE',
       onDelete: 'SET NULL'
+    },
+    departmentId: {
+      type: Sequelize.DataTypes.UUID,
+      allowNull: false,
+      references: {
+        model: 'Departments',
+        key: 'id',
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'SET NULL'
+    },
+    lineManagerMail: {
+      type: Sequelize.DataTypes.STRING,
+      allowNull: false
     },
     createdAt: {
       allowNull: false,

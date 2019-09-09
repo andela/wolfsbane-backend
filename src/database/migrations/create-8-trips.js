@@ -26,11 +26,35 @@ export default {
       type: Sequelize.STRING,
       allowNull: false
     },
+    typeOfTrip: {
+      type: Sequelize.ENUM('One Way', 'Return', 'Multi-City'),
+      allowNull: false
+    },
     requestId: {
       type: Sequelize.DataTypes.UUID,
       allowNull: false,
       references: {
         model: 'Requests',
+        key: 'id',
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE'
+    },
+    accommodationId: {
+      type: Sequelize.DataTypes.UUID,
+      allowNull: false,
+      references: {
+        model: 'Accommodations',
+        key: 'id',
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'SET NULL'
+    },
+    roomId: {
+      type: Sequelize.DataTypes.UUID,
+      allowNull: false,
+      references: {
+        model: 'Rooms',
         key: 'id',
       },
       onUpdate: 'CASCADE',

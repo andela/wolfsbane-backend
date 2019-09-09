@@ -118,3 +118,17 @@ export const checkRoomId = [
 export const checkAccommodationId = [
   checkUuid('accommodationId', 'Invalid Accommodation Id')
 ];
+export const TripRequest = [
+  check('origin', 'please provide the origin..').trim().not().isEmpty(),
+  check('destination', 'please provide the destination..').trim().not().isEmpty(),
+  check('departureDate', 'please select the departure date..').trim().not().isEmpty(),
+  check('travelReasons', 'please provide the travel reason.').trim().not().isEmpty(),
+  check('typeOfTrip', 'please select the type of trip..').trim().not().isEmpty(),
+  check('roomId', 'please select a room..').trim().not().isEmpty(),
+  check('accommodationId', 'please select an accommodation..').trim().not().isEmpty()
+];
+
+export const RequestMail = [
+  check('lineManagerMail', 'please provide the email..').trim().isEmail()
+    .isLength({ min: 3, max: 250 }),
+];

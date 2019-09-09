@@ -1,6 +1,6 @@
 const tripRequestTemplate = (data) => {
   const {
-    manager, requester, tripDetails, url
+    url
   } = data;
   const theEmail = `
   <html>
@@ -218,36 +218,9 @@ const tripRequestTemplate = (data) => {
                   <tr>
                     <td class="content-cell">
                       <div class="f-fallback">
-                      <p><strong>Hi, ${manager}</strong></p>
+                      <p><strong>Hello there!</strong></p>
                         <p>A new trip request from your downline staff is waiting for your response.</p>
-<p>
-- Trip details for: ${requester}
-</p>
-<p>
-<table class="trip-request">
-<thead>
-<tr><th>From</th><th>To</th><th>Date</th><th>Reason</th><th>Reservation</th></tr>
-</thead>
-${tripDetails}
-</table>
-</p>
-
-                        <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0" role="presentation">
-                          <tr>
-                            <td align="center">
-                              <!-- Border based button
-           https://litmus.com/blog/a-guide-to-bulletproof-buttons-in-email-design -->
-                              <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
-                                <tr>
-                                  <td align="center">
-<a href="${url}" class="f-fallback button" target="_blank"><font color="white">&nbsp;&nbsp;Review Request&nbsp;&nbsp;</font></a>
-                                  </td>
-                                </tr>
-                              </table>
-                            </td>
-                          </tr>
-                        </table>
-                        <p>Please <a href="mailto:wolfsbane@gmail.com">contact support</a> if you have questions.</p>
+            <p>Please <a href="mailto:wolfsbane@gmail.com">contact support</a> if you have questions.</p>
                         <p>Thanks,
                           <br>The Wolfs-Bane Team</p>
                         <table class="body-sub" role="presentation">

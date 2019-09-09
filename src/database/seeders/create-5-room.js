@@ -13,6 +13,12 @@ export default {
         type: 'Single Suite',
         capacity: 2,
         accommodationId: '2b770fbc-76e6-4b5a-afab-882759fd1f06'
+      },
+      {
+        id: 'b098fb80-72c7-4a9a-a35a-634692384d89',
+        type: 'Double Suite',
+        capacity: 4,
+        accommodationId: '2b770fbc-76e6-4b5a-afab-882759fd1f06'
       }
     ],
     {}

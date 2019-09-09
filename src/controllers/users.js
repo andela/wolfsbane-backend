@@ -23,8 +23,8 @@ export default class UsersController {
   static async registerUser(req, res) {
     try {
       const { email } = req.body;
-      const userExits = await models.Users.findOne({ where: { email } });
-      if (userExits) {
+      const userExists = await models.Users.findOne({ where: { email } });
+      if (userExists) {
         return conflictResponse(res, status.conflict, messages.signUp.conflict);
       }
 
