@@ -145,6 +145,59 @@ class Authenticate {
       return errorResponse(res, 500, 'Server error');
     }
   }
+
+  /**
+   * Verify if role is Staff, Travel Admin, Manager or Super Admin
+   * @param  {object} req - The user request object
+   * @param  {object} res - The user res response object
+   * @param  {function} next - The next() Function
+   * @returns {String} req.userId - The user id
+   */
+  static async verifyUser(req, res, next) {
+    const { userId } = req.user;
+    try {
+      const verify = await Profiles.findOne({
+        where: {
+          userId, role: { [Sequelize.Op.or]: ['Travel Admin', 'Super Admin', 'Manager', 'Staff'] }
+        },
+      });
+      if (!verify) {
+        return errorResponse(res, 401, 'Access denied.');
+      }
+      return next();
+    } catch (error) {
+      return errorResponse(res, 500, 'Server error');
+    }
+  }
+
+  /**
+   * for managers to verify if the department
+   * @param  {object} req - The user request object
+   * @param  {object} res - The user res response object
+   * @param  {function} next - The next() Function
+   * @returns {String} req.userId - The user id
+   */
+  static async verifyRequest(req, res, next) {
+    const { userId } = req.user;
+    try {
+      const verify = await Profiles.findOne({
+        where: {
+          userId, role: { [Sequelize.Op.or]: ['Manager', 'Super Admin'] }
+        },
+      });
+      if (!verify) {
+        return errorResponse(res, 401, 'Access denied.');
+      }
+      const {
+        departmentId
+      } = verify;
+      req.department = { departmentId };
+      return next();
+    } catch (error) {
+      return errorResponse(res, 500, 'Server error');
+    }
+  }
 }
+
 
 export default Authenticate;
