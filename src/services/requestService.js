@@ -1,23 +1,27 @@
 import models from '../models';
 
-
 const { Trips, Requests } = models;
-
 
 const reqAssociation = [
   {
     model: Trips,
     as: 'requestTrips',
-    attributes: ['origin', 'destination', 'departureDate', 'returnDate', 'travelReasons',
-      'typeOfTrip', 'roomId', 'accommodationId']
-  },
+    attributes: [
+      'origin',
+      'destination',
+      'departureDate',
+      'returnDate',
+      'travelReasons',
+      'typeOfTrip',
+      'roomId',
+      'accommodationId'
+    ]
+  }
 ];
 
 const RequestService = {
   async createRequest(options) {
-    const createrequest = Requests.create(
-      options
-    );
+    const createrequest = Requests.create(options);
     return createrequest;
   },
 
@@ -45,12 +49,12 @@ const RequestService = {
   async managerGetTheRequest(departmentId) {
     const getTripReq = await Requests.findAll({
       where: {
-        departmentId,
+        departmentId
       },
       include: reqAssociation
     });
     return getTripReq;
-  },
+  }
 };
 
 export default RequestService;

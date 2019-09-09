@@ -6,7 +6,10 @@ import RequestController from './requestController';
 import TripController from './tripController';
 
 export {
-  UsersController, ResetPasswordController,
-  AccommodationController, RoomController,
-  RequestController, TripController
+  UsersController,
+  ResetPasswordController,
+  AccommodationController,
+  RoomController,
+  RequestController,
+  TripController
 };

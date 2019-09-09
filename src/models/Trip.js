@@ -29,7 +29,7 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
       references: {
         model: 'Accommodations',
-        key: 'id',
+        key: 'id'
       },
       onUpdate: 'CASCADE',
       onDelete: 'SET NULL'
@@ -39,7 +39,7 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
       references: {
         model: 'Rooms',
-        key: 'id',
+        key: 'id'
       },
       onUpdate: 'CASCADE',
       onDelete: 'SET NULL'
@@ -49,11 +49,11 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
       references: {
         model: 'Requests',
-        key: 'id',
+        key: 'id'
       },
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE'
-    }, 
+    }
   });
   return Trip;
 };

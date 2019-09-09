@@ -1,7 +1,16 @@
 import {
-  userRegister, userLogin,
-  forgotPassword, resetPassword, createAccommodation, updateAccommodation,
-  createRoom, updateRoom, checkRoomId, checkAccommodationId, TripRequest, RequestMail,
+  userRegister,
+  userLogin,
+  forgotPassword,
+  resetPassword,
+  createAccommodation,
+  updateAccommodation,
+  createRoom,
+  updateRoom,
+  checkRoomId,
+  checkAccommodationId,
+  TripRequest,
+  RequestMail,
   checkUserId
 } from './validators/rules';
 

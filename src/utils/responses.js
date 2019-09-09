@@ -29,7 +29,7 @@ const messages = {
   },
   getRequests: {
     error: 'You do not have any requests...',
-    access: 'Sorry, you can not access this resource!',
+    access: 'Sorry, you can not access this resource!'
   },
   getSingleRequests: {
     notFound: 'Oops, you do not have this resource anymore OR permitted to access it!'
@@ -57,7 +57,7 @@ const status = {
   created: 201,
   bad: 400,
   nocontent: 204,
-  unprocessable: 422,
+  unprocessable: 422
 };
 
 const forgeResponse = (res, statusCode, message, data = null, token = null) => {
@@ -72,17 +72,12 @@ const forgeResponse = (res, statusCode, message, data = null, token = null) => {
   return res.status(statusCode).json(response);
 };
 
-const successResponse = (res, statusCode,
-  message, userData, token) => forgeResponse(res, statusCode, message, userData, token);
+const successResponse = (res, statusCode, message, userData, token) => forgeResponse(res, statusCode, message, userData, token);
 
 const errorResponse = (res, statusCode, message) => forgeResponse(res, statusCode, message);
 
 const conflictResponse = (res, statusCode, message) => forgeResponse(res, statusCode, message);
 
 export {
-  status,
-  successResponse,
-  errorResponse,
-  messages,
-  conflictResponse,
+  status, successResponse, errorResponse, messages, conflictResponse
 };

@@ -3,16 +3,13 @@ import RequestController from '../../controllers/requestController';
 import middlewares from '../../middlewares';
 
 const {
-  createRequest, deleteRequest, getAllTripRequests,
-  getATripRequest, managerGetRequest
+  createRequest, deleteRequest, getAllTripRequests, getATripRequest, managerGetRequest
 } = RequestController;
 
 const requestRoutes = new Router();
 
 const { Authenticate, validate } = middlewares;
-const {
-  verifyToken, verifyUser, verifyRequest
-} = Authenticate;
+const { verifyToken, verifyUser, verifyRequest } = Authenticate;
 
 requestRoutes.post('/:departmentId', verifyToken, verifyUser, validate('RequestMail'), createRequest);
 requestRoutes.delete('/:id', verifyToken, verifyUser, deleteRequest);

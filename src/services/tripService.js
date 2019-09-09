@@ -4,9 +4,7 @@ const { Trips } = models;
 
 const TripService = {
   async createTrip(options) {
-    const createTrip = await Trips.create(
-      options
-    );
+    const createTrip = await Trips.create(options);
     return createTrip;
   },
 
@@ -14,6 +12,6 @@ const TripService = {
     await Trips.findOne({ where: { id: tripId } });
     await Trips.update(options, { where: { id: tripId } });
     return options;
-  },
+  }
 };
 export default TripService;
