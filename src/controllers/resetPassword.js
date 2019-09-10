@@ -36,7 +36,7 @@ export default class ResetPasswordController {
       } = user;
       const secret = `${passwordHash}-${createdAt}`;
       const token = await Jwt.generateToken({ userId }, secret);
-      const url = `${baseUrl}/forgotpassword/${userId}?token=${token}`;
+      const url = `${baseUrl}/resetpassword/${userId}?token=${token}`;
       await sendEmail(email, 'passwordRecovery', { firstName, url });
       return res.status(200).json(url);
     } catch (error) {

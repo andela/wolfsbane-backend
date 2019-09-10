@@ -1,7 +1,7 @@
 version: "2"
 exclude_patterns:
-  - "/database/"
-  - "/models/"
+  - "**/database/"
+  - "**/models/"
   - "**/test/"
   - "./src/utils/emailTemplates/confirmAccountTemplate.js"
   - "./src/utils/emailTemplates/passwordRecoveryTemplate.js"

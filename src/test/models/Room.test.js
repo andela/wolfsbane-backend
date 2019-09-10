@@ -14,6 +14,6 @@ describe('Test for Room Model', () => {
   checkModelName(Room)('Rooms');
 
   context('properties', () => {
-    ['type', 'capacity'].forEach(checkPropertyExists(room));
+    ['type', 'capacity', 'image'].forEach(checkPropertyExists(room));
   });
 });

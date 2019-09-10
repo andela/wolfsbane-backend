@@ -11,11 +11,11 @@ export default {
       allowNull: false,
       defaultValue: 'pending',
     },
-    accomodationId: {
+    accommodationId: {
       type: Sequelize.DataTypes.UUID,
       allowNull: false,
       references: {
-        model: 'Accomodations',
+        model: 'Accommodations',
         key: 'id',
       },
       onUpdate: 'CASCADE',

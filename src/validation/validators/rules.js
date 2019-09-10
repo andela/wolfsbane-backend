@@ -1,4 +1,4 @@
-import { check, body } from 'express-validator';
+import { check, body, param } from 'express-validator';
 
 // add validation rules here.
 
@@ -17,6 +17,16 @@ the ^ and $ runs the match from the beginning and end of the string
 */
 
 const nameRegex = /^[A-Za-z\-']{2,250}$/;
+
+// Regex to check for valid uuid
+const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
+
+// UUID checker
+const checkUuid = (input, message) => param(input)
+  .not()
+  .isEmpty()
+  .matches(uuidRegex)
+  .withMessage(message);
 export const userRegister = [
   check('firstName')
     .matches(nameRegex)
@@ -59,4 +69,47 @@ export const resetPassword = [
     }
     return true;
   })
+];
+
+export const createAccommodation = [
+  check('name', 'Accommodation name is required').not().isEmpty(),
+  check('address', 'Address is required').not().isEmpty(),
+  check('image', 'Invalid image path').optional().not().isEmpty(),
+];
+
+export const updateAccommodation = [
+  param('accommodationId')
+    .not()
+    .isEmpty()
+    .matches(uuidRegex)
+    .withMessage('Invalid AccommodationId'),
+  check('name', 'Accommodation name is required').not().isEmpty(),
+  check('address', 'Address is required').not().isEmpty(),
+  check('image', 'Invalid image path').optional().not().isEmpty()
+];
+
+export const createRoom = [
+  param('accommodationId')
+    .not()
+    .isEmpty()
+    .matches(uuidRegex)
+    .withMessage('Invalid AccommodationId'),
+  check('type', 'Address is required').not().isEmpty(),
+  check('capacity', 'Capacity is required').not().isEmpty().isInt(),
+  check('image', 'Image is required').optional().not().isEmpty(),
+];
+export const updateRoom = [
+  param('roomId')
+    .not()
+    .isEmpty()
+    .matches(uuidRegex)
+    .withMessage('Invalid RoomId'),
+  check('type', 'Address is required').not().isEmpty(),
+  check('capacity', 'Capacity is required').not().isEmpty().isInt()
+];
+export const checkRoomId = [
+  checkUuid('roomId', 'Invalid Room Id')
+];
+export const checkAccommodationId = [
+  checkUuid('accommodationId', 'Invalid Accommodation Id')
 ];
