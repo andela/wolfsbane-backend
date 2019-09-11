@@ -23,10 +23,12 @@ describe('Test for User Model', () => {
   context('associations', () => {
     const Profiles = 'the user profile';
     const Requests = 'the user that makes a request';
+    const Reaction = 'the reaction of the user to an accomodation facility';
 
     before(() => {
       User.associate({ Profiles });
       User.associate({ Requests });
+      User.associate({ Reaction });
     });
 
     it('defined a hasOne association with Profile', () => {
@@ -35,6 +37,10 @@ describe('Test for User Model', () => {
 
     it('defined a hasMany association with Requests', () => {
       expect(User.hasMany).to.have.been.calledWith(Requests, { as: 'userRequests', foreignKey: 'userId' });
+    });
+
+    it('defined a hasMany association with Reaction', () => {
+      expect(User.hasMany).to.have.been.calledWith(Reaction, { as: 'userReactions', foreignKey: 'userId' });
     });
   });
 });

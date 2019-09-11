@@ -7,8 +7,8 @@ export default (sequelize, DataTypes) => {
     },
   }, {});
   Request.associate = (models) => {
-    Request.hasMany(models.Comments, { as: 'requestComments', foreignKey: 'reqId' });
-    Request.hasMany(models.Trips, { as: 'requestTrips', foreignKey: 'reqId' });
+    Request.hasMany(models.Comments, { as: 'requestComments', foreignKey: 'requestId' });
+    Request.hasMany(models.Trips, { as: 'requestTrips', foreignKey: 'requestId' });
   };
   return Request;
 };

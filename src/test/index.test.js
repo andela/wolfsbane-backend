@@ -10,6 +10,7 @@ import './models/Accommodation.test';
 import './models/Comment.test';
 import './models/Request.test';
 import './models/Room.test';
+import './models/Reaction.test';
 import './models/Trip.test';
 import './models/User.test';
 import './validation/validate.test';

@@ -32,11 +32,11 @@ describe('Test for Request Model', () => {
     });
 
     it('defined a hasMany association with Comments', () => {
-      expect(Request.hasMany).to.have.been.calledWith(Comments, { as: 'requestComments', foreignKey: 'reqId' });
+      expect(Request.hasMany).to.have.been.calledWith(Comments, { as: 'requestComments', foreignKey: 'requestId' });
     });
 
     it('defined a hasMany association with Trips', () => {
-      expect(Request.hasMany).to.have.been.calledWith(Trips, { as: 'requestTrips', foreignKey: 'reqId' });
+      expect(Request.hasMany).to.have.been.calledWith(Trips, { as: 'requestTrips', foreignKey: 'requestId' });
     });
   });
 });

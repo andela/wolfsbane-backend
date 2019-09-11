@@ -31,7 +31,7 @@ app.use((req, res, next) => {
 // development error handler
 // will print stacktrace
 if (!isProduction) {
-  app.use((err, req, res) => {
+  app.use((err, req, res, next) => {
     // eslint-disable-next-line no-console
     console.log(err.stack);
     res.status(err.status || 500);
@@ -46,9 +46,8 @@ if (!isProduction) {
 
 // production error handler
 // no stacktraces leaked to user
-app.use((err, req, res) => {
-  res.status(err.status || 500);
-  res.json({
+app.use((err, req, res, next) => {
+  res.status(err.status || 500).json({
     errors: {
       message: err.message,
       error: {}

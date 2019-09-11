@@ -33,7 +33,6 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
  *  or {success: false, error: 'Unauthorised'}
  */
 
-const isTest = process.env.NODE_ENV === 'test';
 
 const sendEmail = async (receiver, category, data) => {
   try {
@@ -48,7 +47,6 @@ const sendEmail = async (receiver, category, data) => {
       subject,
       html,
     };
-    if (isTest) return Promise.resolve({ success: true, message: 'Email sent successfully' });
 
     const result = await sgMail.send(msg);
     if (result[0] && result[0].request) {

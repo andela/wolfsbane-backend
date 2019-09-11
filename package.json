@@ -9,6 +9,7 @@
     "build": "npm run clean && npm run build-babel",
     "pre-test": "cross-env NODE_ENV=test npm run migrate && cross-env NODE_ENV=test npm run seed",
     "undo-pre-test": "cross-env NODE_ENV=test npm run undo-migrate",
+    "spec": "npm run undo-pre-test && npm run pre-test && npm test",
     "test": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha src/test/index.test --timeout 10000 --require @babel/register --recursive --exit || true",
     "start": "npm run build && node ./build/index.js",
     "start:dev": "cross-env NODE_ENV=development nodemon --exec babel-node ./src/index.js",
