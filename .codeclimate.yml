@@ -8,4 +8,3 @@ exclude_patterns:
   - "./src/utils/emailTemplates/tripRequestTemplate.js"
   - "./src/utils/emailTemplates/tripFeedbackTemplate.js"
   - "./src/utils/emailTemplatesFunction.js"
-

@@ -3,7 +3,10 @@ export default (sequelize, DataTypes) => {
     comment: {
       type: DataTypes.STRING,
       allowNull: false
-    }
+    },
   }, {});
+  Comment.associate = (models) => {
+    Comment.belongsTo(models.Users, { as: 'theComment', foreignKey: 'userId' });
+  };
   return Comment;
 };

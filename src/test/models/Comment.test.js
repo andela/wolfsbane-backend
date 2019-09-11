@@ -1,3 +1,4 @@
+import { expect } from 'chai';
 import {
   sequelize,
   dataTypes,
@@ -15,5 +16,17 @@ describe('Test for Comment Model', () => {
 
   context('properties', () => {
     ['comment'].forEach(checkPropertyExists(comment));
+  });
+
+  context('associations', () => {
+    const Users = 'The owner of the Comment';
+
+    before(() => {
+      Comment.associate({ Users });
+    });
+
+    it('defined a belongsTo association with Users', () => {
+      expect(Comment.belongsTo).to.have.been.calledWith(Users);
+    });
   });
 });

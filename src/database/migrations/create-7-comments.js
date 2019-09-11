@@ -10,6 +10,16 @@ export default {
       type: Sequelize.STRING,
       allowNull: false
     },
+    userId: {
+      type: Sequelize.DataTypes.UUID,
+      allowNull: false,
+      references: {
+        model: 'Users',
+        key: 'id',
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'SET NULL'
+    },
     requestId: {
       type: Sequelize.DataTypes.UUID,
       allowNull: false,
