@@ -3,6 +3,7 @@ import './controllers/users.test';
 import './controllers/socialAuth.test';
 import './controllers/resetpassword.test';
 import './controllers/accommodation.test';
+import './controllers/comments.test';
 import './controllers/room.test';
 import './controllers/profile.test';
 import './models/Department.test';

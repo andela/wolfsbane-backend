@@ -118,3 +118,7 @@ export const checkRoomId = [
 export const checkAccommodationId = [
   checkUuid('accommodationId', 'Invalid Accommodation Id')
 ];
+
+export const addComment = [
+  check('comment', 'Comment is required').not().isEmpty(),
+];
