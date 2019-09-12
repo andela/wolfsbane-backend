@@ -47,5 +47,5 @@ export default {
       defaultValue: Date.now()
     }
   }),
-  down: (queryInterface, Sequelize) => queryInterface.dropTable('Rooms')
+  down: (queryInterface, Sequelize) => queryInterface.dropTable('Trips')
 };

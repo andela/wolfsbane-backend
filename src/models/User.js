@@ -26,6 +26,7 @@ export default (sequelize, DataTypes) => {
   User.associate = (models) => {
     User.hasOne(models.Profiles, { as: 'theUser', foreignKey: 'userId' });
     User.hasMany(models.Requests, { as: 'userRequests', foreignKey: 'userId' });
+    User.hasMany(models.Reaction, { as: 'userReactions', foreignKey: 'userId'});
   };
   return User;
 };
