@@ -1,5 +1,5 @@
 import models from '../models';
-import sendEmail from '../services';
+import * as services from '../services';
 import {
   status, messages, hashPassword, generateToken,
   successResponse, errorResponse, conflictResponse, Jwt, bcrypt, getCallbackUrls
@@ -31,12 +31,11 @@ export default class UsersController {
       req.body.password = await hashPassword(req.body.password);
       const user = await models.Users.create(req.body);
       const response = user.toJSON();
-
       delete response.password;
       const { id: userId, firstName } = user;
       const token = await generateToken({ userId });
       const url = `${baseUrl}/users/confirmAccount?token=${token}`;
-      await sendEmail(email, 'confirmAccount', { firstName, url });
+      await services.sendEmail(email, 'confirmAccount', { firstName, url });
       return successResponse(res, status.created, messages.signUp.success, response, token);
     } catch (error) {
       return errorResponse(res, status.error, messages.signUp.error);
