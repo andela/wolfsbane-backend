@@ -23,13 +23,16 @@ describe('Test for Profile Model', () => {
   });
   context('associations', () => {
     const Departments = 'the department the user profile belongs to';
+    const Users = 'the owner of the user profile';
 
     before(() => {
       Profile.associate({ Departments });
+      Profile.associate({ Users });
     });
 
     it('defined a belongsTo association with Department', () => {
       expect(Profile.belongsTo).to.have.been.calledWith(Departments);
+      expect(Profile.belongsTo).to.have.been.calledWith(Users);
     });
   });
 });

@@ -7,8 +7,9 @@ export default (sequelize, DataTypes) => {
         model: 'Users',
         key: 'id'
       },
+      unique: true,
       onUpdate: 'CASCADE',
-      onDelete: 'SET NULL'
+      onDelete: 'CASCADE'
     },
     phoneNumber: {
       type: DataTypes.STRING,
@@ -40,6 +41,7 @@ export default (sequelize, DataTypes) => {
   });
   Profile.associate = (models) => {
     Profile.belongsTo(models.Departments, { as: 'theDepartment', foreignKey: 'departmentId' });
+    Profile.belongsTo(models.Users, { as: 'theUser', foreignKey: 'userId' });
   };
   return Profile;
 };

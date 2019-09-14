@@ -3,7 +3,7 @@ export default {
     id: {
       allowNull: false,
       primaryKey: true,
-      type: Sequelize.UUID,
+      type: Sequelize.DataTypes.UUID,
       defaultValue: Sequelize.literal('uuid_generate_v4()')
     },
     userId: {
@@ -13,8 +13,9 @@ export default {
         model: 'Users',
         key: 'id'
       },
+      unique: true,
       onUpdate: 'CASCADE',
-      onDelete: 'SET NULL'
+      onDelete: 'CASCADE'
     },
     phoneNumber: {
       type: Sequelize.STRING,

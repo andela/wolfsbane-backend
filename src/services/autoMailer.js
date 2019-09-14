@@ -47,7 +47,6 @@ const sendEmail = async (receiver, category, data) => {
       subject,
       html,
     };
-
     const result = await sgMail.send(msg);
     if (result[0] && result[0].request) {
       return { success: true, message: 'Email sent successfully' };
