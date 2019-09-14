@@ -7,7 +7,6 @@ import app from '../../index';
 import models from '../../models';
 import { AccommodationController } from '../../controllers';
 
-
 const accommodationRoute = '/api/v1/accommodations';
 
 const signinRoute = '/api/v1/users/signin';
@@ -417,6 +416,242 @@ describe('Test for Accommodation Endpoints', () => {
               done();
             });
         });
+    });
+  });
+
+  describe('Like an Accommodation facility', () => {
+    it('should successfully like an existing accommodation', async () => {
+      const user = await request
+        .post(signinRoute)
+        .send(login);
+      const token = `Bearer ${user.body.data.token}`;
+
+      const res = await request
+        .post(`${accommodationRoute}/2b770fbc-76e6-4b5a-afab-882759fd1f06/like`)
+        .set('Authorization', token);
+
+      expect(res).to.have.status(200);
+      expect(res.body).to.have.property('status');
+      expect(res.body).to.have.property('message');
+    });
+    it('fakes server error when liking an accommodation facility', async () => {
+      const req = {
+        params: {
+          accommodationId: '2b770fbc-76e6-4b5a-afab-882759fd1f06'
+        },
+        user: {
+          userId: 'a4nk945ad'
+        }
+      };
+      const res = {
+        status: () => { },
+        json: () => { },
+      };
+      sinon.stub(res, 'status').returnsThis();
+      sinon.stub(models.Reaction, 'findOne').throws();
+
+      await AccommodationController.likeAccommodation(req, res);
+      expect(res.status).to.have.been.calledWith(500);
+    });
+    it('fakes a successful like of an accommodation', async () => {
+      const req = {
+        params: {
+          accommodationId: '2b770fbc-76e6-4b5a-afab-882759fd1f06'
+        },
+        user: {
+          userId: 'a4nk945ad'
+        }
+      };
+      const res = {
+        status: () => { },
+        json: () => { },
+      };
+      const result = {
+        count: 3
+      };
+      sinon.stub(res, 'status').returnsThis();
+      sinon.stub(models.Reaction, 'findOne').returns(null);
+      sinon.stub(models.Reaction, 'create').returns(true);
+      sinon.stub(models.Reaction, 'findAndCountAll').returns(result);
+
+      await AccommodationController.likeAccommodation(req, res);
+      expect(res.status).to.have.been.calledWith(200);
+    });
+    it('fakes a successful removal of like from accommodation', async () => {
+      const req = {
+        params: {
+          accommodationId: '2b770fbc-76e6-4b5a-afab-882759fd1f06'
+        },
+        user: {
+          userId: 'a4nk945ad'
+        }
+      };
+      const res = {
+        status: () => { },
+        json: () => { },
+      };
+      const result = {
+        reaction: true,
+        userId: 'a4nk945ad',
+        accommodationId: 'id789ash7sa'
+      };
+      const countResult = {
+        count: 3
+      };
+      sinon.stub(res, 'status').returnsThis();
+      sinon.stub(models.Reaction, 'findOne').returns(result);
+      sinon.stub(models.Reaction, 'destroy').returns(true);
+      sinon.stub(models.Reaction, 'findAndCountAll').returns(countResult);
+
+      await AccommodationController.likeAccommodation(req, res);
+      expect(res.status).to.have.been.calledWith(200);
+    });
+    it('fakes a successful liking of accommodation when it was unliked previouly', async () => {
+      const req = {
+        params: {
+          accommodationId: '2b770fbc-76e6-4b5a-afab-882759fd1f06'
+        },
+        user: {
+          userId: 'a4nk945ad'
+        }
+      };
+      const res = {
+        status: () => { },
+        json: () => { },
+      };
+      const result = {
+        reaction: false,
+        userId: 'a4nk945ad',
+        accommodationId: 'id789ash7sa'
+      };
+      const countResult = {
+        count: 3
+      };
+      sinon.stub(res, 'status').returnsThis();
+      sinon.stub(models.Reaction, 'findOne').returns(result);
+      sinon.stub(models.Reaction, 'update').returns(true);
+      sinon.stub(models.Reaction, 'findAndCountAll').returns(countResult);
+
+      await AccommodationController.likeAccommodation(req, res);
+      expect(res.status).to.have.been.calledWith(200);
+    });
+  });
+
+  describe('Unlike an Accommodation facility', () => {
+    it('should successfully unlike an existing accommodation', async () => {
+      const user = await request
+        .post(signinRoute)
+        .send(login);
+      const token = `Bearer ${user.body.data.token}`;
+
+      const res = await request
+        .post(`${accommodationRoute}/2b770fbc-76e6-4b5a-afab-882759fd1f06/unlike`)
+        .set('Authorization', token);
+
+      expect(res).to.have.status(200);
+      expect(res.body).to.have.property('status');
+      expect(res.body).to.have.property('message');
+    });
+    it('fakes server error when unliking an accommodation facility', async () => {
+      const req = {
+        params: {
+          accommodationId: '2b770fbc-76e6-4b5a-afab-882759fd1f06'
+        },
+        user: {
+          userId: 'a4nk945ad'
+        }
+      };
+      const res = {
+        status: () => { },
+        json: () => { },
+      };
+      sinon.stub(res, 'status').returnsThis();
+      sinon.stub(models.Reaction, 'findOne').throws();
+
+      await AccommodationController.dislikeAccommodation(req, res);
+      expect(res.status).to.have.been.calledWith(500);
+    });
+    it('fakes a successful dislike of an accommodation', async () => {
+      const req = {
+        params: {
+          accommodationId: '2b770fbc-76e6-4b5a-afab-882759fd1f06'
+        },
+        user: {
+          userId: 'a4nk945ad'
+        }
+      };
+      const res = {
+        status: () => { },
+        json: () => { },
+      };
+      const result = {
+        count: 3
+      };
+      sinon.stub(res, 'status').returnsThis();
+      sinon.stub(models.Reaction, 'findOne').returns(null);
+      sinon.stub(models.Reaction, 'create').returns(true);
+      sinon.stub(models.Reaction, 'findAndCountAll').returns(result);
+
+      await AccommodationController.dislikeAccommodation(req, res);
+      expect(res.status).to.have.been.calledWith(200);
+    });
+    it('fakes a successful removal of unlike from accommodation', async () => {
+      const req = {
+        params: {
+          accommodationId: '2b770fbc-76e6-4b5a-afab-882759fd1f06'
+        },
+        user: {
+          userId: 'a4nk945ad'
+        }
+      };
+      const res = {
+        status: () => { },
+        json: () => { },
+      };
+      const result = {
+        reaction: false,
+        userId: 'a4nk945ad',
+        accommodationId: 'id789ash7sa'
+      };
+      const countResult = {
+        count: 3
+      };
+      sinon.stub(res, 'status').returnsThis();
+      sinon.stub(models.Reaction, 'findOne').returns(result);
+      sinon.stub(models.Reaction, 'destroy').returns(true);
+      sinon.stub(models.Reaction, 'findAndCountAll').returns(countResult);
+
+      await AccommodationController.dislikeAccommodation(req, res);
+      expect(res.status).to.have.been.calledWith(200);
+    });
+    it('fakes a successful unliking of accommodation when it was liked previouly', async () => {
+      const req = {
+        params: {
+          accommodationId: '2b770fbc-76e6-4b5a-afab-882759fd1f06'
+        },
+        user: {
+          userId: 'a4nk945ad'
+        }
+      };
+      const res = {
+        status: () => { },
+        json: () => { },
+      };
+      const result = {
+        reaction: true,
+        userId: 'a4nk945ad',
+        accommodationId: 'id789ash7sa'
+      };
+      const countResult = {
+        count: 3
+      };
+      sinon.stub(res, 'status').returnsThis();
+      sinon.stub(models.Reaction, 'findOne').returns(result);
+      sinon.stub(models.Reaction, 'update').returns(true);
+      sinon.stub(models.Reaction, 'findAndCountAll').returns(countResult);
+
+      await AccommodationController.dislikeAccommodation(req, res);
+      expect(res.status).to.have.been.calledWith(200);
     });
   });
 });

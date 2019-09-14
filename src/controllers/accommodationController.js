@@ -1,7 +1,7 @@
 import models from '../models';
 import { successResponse, errorResponse } from '../utils';
 
-const { Accommodations, Rooms } = models;
+const { Accommodations, Rooms, Reaction } = models;
 
 const association = [
   {
@@ -10,6 +10,33 @@ const association = [
     attributes: ['id', 'type', 'capacity', 'image']
   }
 ];
+
+const reactToAccommodation = async (req, res, reactionType) => {
+  const { accommodationId } = req.params;
+  const { userId } = req.user;
+  try {
+    const result = await Reaction.findOne({
+      where: { accommodationId, userId }
+    });
+    if (!result) {
+      await Reaction.create({ reaction: reactionType, userId, accommodationId });
+    } else if (result.reaction === reactionType) {
+      await Reaction.destroy({
+        where: { accommodationId, userId }
+      });
+    } else {
+      await Reaction.update({ reaction: reactionType },
+        { where: { accommodationId, userId } });
+    }
+    const { count } = await Reaction.findAndCountAll({
+      where: { accommodationId, reaction: reactionType }
+    });
+    reactionType ? reactionType = 'like' : reactionType = 'unlike';
+    return successResponse(res, 200, `Total number of ${reactionType}: ${count}`, { [reactionType]: count });
+  } catch (error) {
+    return errorResponse(res, 500, 'Internal server error');
+  }
+};
 
 /**
  * @class AccommodationController
@@ -95,6 +122,28 @@ class AccommodationController {
     } catch (error) {
       return errorResponse(res, 500, 'Error updating accommodations');
     }
+  }
+
+  /**
+    * @method likeAccommodation
+    * @description Method to like accommodation
+    * @param {object} req - The Request Object
+    * @param {object} res - The Response Object
+    * @returns {object} the response object
+    */
+  static async likeAccommodation(req, res) {
+    await reactToAccommodation(req, res, true);
+  }
+
+  /**
+    * @method dislikeAccommodation
+    * @description Method to unlike accommodation
+    * @param {object} req - The Request Object
+    * @param {object} res - The Response Object
+    * @returns {object} the response object
+    */
+  static async dislikeAccommodation(req, res) {
+    await reactToAccommodation(req, res, false);
   }
 
   /**

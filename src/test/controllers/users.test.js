@@ -9,6 +9,7 @@ import { UsersController } from '../../controllers';
 import {
   status, messages, Jwt, bcrypt,
 } from '../../utils';
+import * as services from '../../services';
 
 chai.use(sinonChai);
 chai.use(chaiHttp);
@@ -76,32 +77,39 @@ describe('User Registration test', () => {
     });
   });
 
-  it('it should  POST a user', (done) => {
-    chai.request(server)
-      .post(signUpRoute)
-      .send(dummyUser)
-      .end((err, res) => {
-        res.should.have.status(status.created);
-        res.body.should.be.a('object');
-        res.body.should.have.property('status').eql(status.created);
-        res.body.should.have.property('data');
-        res.body.data.should.have.property('token');
-        done(err);
-      });
+  it('fakes successful user signup', async () => {
+    const req = {
+      body: dummyUser
+    };
+    const res = {
+      status: () => { },
+      json: () => { },
+    };
+
+    sinon.stub(res, 'status').returnsThis();
+    sinon.stub(models.Users, 'findOne').returns(null);
+    sinon.stub(services, 'sendEmail').returns({ success: true, message: 'Email sent successfully' });
+
+    await registerUser(req, res);
+    expect(res.status).to.have.been.calledWith(status.created);
   });
 
-  it('it should not POST a user if user exists', (done) => {
-    chai.request(server)
-      .post(signUpRoute)
-      .send(dummyUser)
-      .end((err, res) => {
-        res.should.have.status(status.conflict);
-        res.body.should.be.a('object');
-        res.body.should.have.property('status').eql(status.conflict);
-        res.body.should.have.property('message').eql(messages.signUp.conflict);
-        done(err);
-      });
+  it('fakes a conflict when user already exist', async () => {
+    const req = {
+      body: dummyUser
+    };
+    const res = {
+      status: () => { },
+      json: () => { },
+    };
+
+    sinon.stub(res, 'status').returnsThis();
+    sinon.stub(models.Users, 'findOne').returns(true);
+
+    await registerUser(req, res);
+    expect(res.status).to.have.been.calledWith(status.conflict);
   });
+  
   it('fakes a server error during user registration', async () => {
     const req = {
       body: dummyUser

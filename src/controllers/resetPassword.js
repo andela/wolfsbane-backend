@@ -3,7 +3,7 @@ import {
   hashPassword, successResponse,
   errorResponse, Jwt, getCallbackUrls
 } from '../utils';
-import sendEmail from '../services';
+import * as services from '../services';
 
 const { baseUrl } = getCallbackUrls;
 
@@ -37,7 +37,7 @@ export default class ResetPasswordController {
       const secret = `${passwordHash}-${createdAt}`;
       const token = await Jwt.generateToken({ userId }, secret);
       const url = `${baseUrl}/resetpassword/${userId}?token=${token}`;
-      await sendEmail(email, 'passwordRecovery', { firstName, url });
+      await services.sendEmail(email, 'passwordRecovery', { firstName, url });
       return res.status(200).json(url);
     } catch (error) {
       return errorResponse(res, 500, error.message);

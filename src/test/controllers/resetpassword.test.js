@@ -4,6 +4,7 @@ import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import app from '../../index';
 import models from '../../models';
+import * as services from '../../services';
 import ResetPasswordController from '../../controllers/resetPassword';
 import { Jwt } from '../../utils';
 
@@ -23,8 +24,7 @@ describe('RESET PASSWORD', () => {
   after(() => request.close());
 
   context('FORGOT PASSWORD', () => {
-    it('should have a status 200 and send password reset link to the supplied email', async function callBack() {
-      this.timeout(20000);
+    it('should have a status 200 and send password reset link to the supplied email', async () => {
       const req = {
         body: {
           email: 'fakemail@mail.com'
@@ -45,6 +45,7 @@ describe('RESET PASSWORD', () => {
       };
       sinon.stub(res, 'status').returnsThis();
       sinon.stub(models.Users, 'findOne').returns(user);
+      sinon.stub(services, 'sendEmail').returns({ success: true, message: 'Email sent successfully' });
 
       await ResetPasswordController.sendPasswordResetEmail(req, res);
       expect(res.status).to.have.been.calledWith(200);
@@ -75,7 +76,7 @@ describe('RESET PASSWORD', () => {
       expect(res).to.have.status(422);
       expect(res.body).to.have.property('errors');
     });
-    it('fakes server error setting reset password link', async () => {
+    it('fakes server error sending reset password link', async () => {
       const req = {
         body: {
           email: 'fakemail@mail.com'
@@ -105,7 +106,7 @@ describe('RESET PASSWORD', () => {
         token: '98092qnk0k0sdfskn43t9ndsjmjknsf'
       }
     };
-    it('fakes server error setting new password', async () => {
+    it('fakes server error resetting the password', async () => {
       const res = {
         status: () => {},
         json: () => {},
