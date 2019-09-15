@@ -1,8 +1,7 @@
 import {
   userRegister, userLogin,
   forgotPassword, resetPassword, createAccommodation, updateAccommodation,
-  createRoom, updateRoom, checkRoomId, checkAccommodationId,
-  checkUserId
+  createRoom, updateRoom, checkRoomId, checkAccommodationId, checkUserId, addComment
 } from './validators/rules';
 
 const getValidator = (validationName) => {
@@ -11,6 +10,7 @@ const getValidator = (validationName) => {
     userLogin,
     forgotPassword,
     resetPassword,
+    addComment,
     createAccommodation,
     updateAccommodation,
     checkAccommodationId,

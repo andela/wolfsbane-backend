@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import models from '../models';
 import { successResponse, errorResponse } from '../utils';
 
