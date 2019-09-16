@@ -21,23 +21,24 @@ describe('Test for Accommodation Model', () => {
 
   context('associations', () => {
     const Rooms = 'The rooms an accommodation offers';
-    const Requests = 'The request for an an accommodation';
+    const Trips = 'The request for a trip accommodation';
     const Reaction = 'The reaction to an accomodation facility';
 
     before(() => {
       Accommodation.associate({ Rooms });
-      Accommodation.associate({ Requests });
+      Accommodation.associate({ Trips });
       Accommodation.associate({ Reaction });
     });
 
-    it('defined a hasMany association with Requests', () => {
-      expect(Accommodation.hasMany).to.have.been.calledWith(Requests, {
-        as: 'requestAccommodation',
+    it('defined a hasMany association with Trips', () => {
+      expect(Accommodation.hasMany).to.have.been.calledWith(Trips, {
+        as: 'tripAccommodation',
         foreignKey: 'accommodationId',
         onDelete: 'cascade',
         hooks: true
       });
     });
+
 
     it('defined a hasMany association with Rooms', () => {
       expect(Accommodation.hasMany).to.have.been.calledWith(Rooms, {

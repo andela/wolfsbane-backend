@@ -20,3 +20,5 @@ import './utils/responses.test';
 import './utils/jwt.test';
 import './utils/emailTemplatesFunction.test';
 import './services/autoMailer.test';
+import './controllers/Request.test';
+import './controllers/Trip.test';

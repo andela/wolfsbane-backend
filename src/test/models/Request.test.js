@@ -36,7 +36,9 @@ describe('Test for Request Model', () => {
     });
 
     it('defined a hasMany association with Trips', () => {
-      expect(Request.hasMany).to.have.been.calledWith(Trips, { as: 'requestTrips', foreignKey: 'requestId' });
+      expect(Request.hasMany).to.have.been.calledWith(Trips, {
+        as: 'requestTrips', foreignKey: 'requestId', hooks: true, onDelete: 'cascade'
+      });
     });
   });
 });

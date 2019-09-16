@@ -14,6 +14,6 @@ describe('Test for Trip Model', () => {
   checkModelName(Trip)('Trips');
 
   context('properties', () => {
-    ['origin', 'destination', 'departureDate', 'returnDate', 'travelReasons'].forEach(checkPropertyExists(trip));
+    ['origin', 'destination', 'departureDate', 'returnDate', 'travelReasons', 'requestId', 'roomId', 'typeOfTrip'].forEach(checkPropertyExists(trip));
   });
 });

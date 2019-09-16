@@ -11,6 +11,40 @@ const messages = {
     error: 'Could not sign in user try again',
     invalid: 'Invalid Credentials',
     unverified: 'Email not verified, check your mail to verify'
+  },
+  requests: {
+    success: 'The trip request has been created!',
+    error: 'Oops, there was an error trying to create a trip request!'
+  },
+  updateRequests: {
+    success: 'Successfully updated!',
+    error: 'Oops, there was an error trying to update a trip request!',
+    access: 'Sorry, you can not update this resource again...'
+  },
+  deleteRequests: {
+    error: 'Oops, this resouce can not be found!',
+    success: 'This action was successful!',
+    notFound: 'Oops, you do not have this resource OR you are not permitted to access it!',
+    access: 'Sorry, you can not delete this resource again...'
+  },
+  getRequests: {
+    error: 'You do not have any requests...',
+    access: 'Sorry, you can not access this resource!',
+  },
+  getSingleRequests: {
+    notFound: 'Oops, you do not have this resource anymore OR permitted to access it!'
+  },
+  authentication: {
+    error: 'Oops, something went wrong...',
+    auth: 'Sorry, you are not authorized to access this resource.'
+  },
+  updateTrips: {
+    unauthorized: 'Access denied!'
+  },
+  managerRequests: {
+    success: 'These are all the requests in this department.',
+    notFound: 'There are no requests in this department.',
+    error: 'Oops, something went wrong...'
   }
 };
 
