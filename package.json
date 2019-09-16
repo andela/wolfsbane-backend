@@ -7,6 +7,7 @@
     "clean": "rm -rf build && mkdir build",
     "build-babel": "babel -d ./build ./src -s",
     "build": "npm run clean && npm run build-babel",
+    "pre-dev": "cross-env NODE_ENV=development npm run migrate && cross-env NODE_ENV=development npm run seed",
     "pre-test": "cross-env NODE_ENV=test npm run migrate && cross-env NODE_ENV=test npm run seed",
     "undo-pre-test": "cross-env NODE_ENV=test npm run undo-migrate",
     "spec": "npm run undo-pre-test && npm run pre-test && npm test",

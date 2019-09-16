@@ -1,7 +1,16 @@
 import {
-  userRegister, userLogin,
-  forgotPassword, resetPassword, createAccommodation, updateAccommodation,
-  createRoom, updateRoom, checkRoomId, checkAccommodationId,
+  userRegister,
+  userLogin,
+  forgotPassword,
+  resetPassword,
+  createAccommodation,
+  updateAccommodation,
+  createRoom,
+  updateRoom,
+  checkRoomId,
+  checkAccommodationId,
+  TripRequest,
+  RequestMail,
   checkUserId
 } from './validators/rules';
 
@@ -17,7 +26,9 @@ const getValidator = (validationName) => {
     createRoom,
     updateRoom,
     checkRoomId,
-    checkUserId
+    checkUserId,
+    TripRequest,
+    RequestMail
   };
 
   return rules[validationName];

@@ -1,9 +1,6 @@
 import { expect } from 'chai';
 import {
-  sequelize,
-  dataTypes,
-  checkModelName,
-  checkPropertyExists
+  sequelize, dataTypes, checkModelName, checkPropertyExists
 } from 'sequelize-test-helpers';
 
 import RequestModel from '../../models/Request';
@@ -18,12 +15,10 @@ describe('Test for Request Model', () => {
     ['status'].forEach(checkPropertyExists(request));
   });
 
-
   context('associations', () => {
     const Comments = 'The comments a request has';
     const Users = 'The user that makes a request';
     const Trips = 'The trips a request has';
-
 
     before(() => {
       Request.associate({ Comments });
@@ -32,11 +27,19 @@ describe('Test for Request Model', () => {
     });
 
     it('defined a hasMany association with Comments', () => {
-      expect(Request.hasMany).to.have.been.calledWith(Comments, { as: 'requestComments', foreignKey: 'requestId' });
+      expect(Request.hasMany).to.have.been.calledWith(Comments, {
+        as: 'requestComments',
+        foreignKey: 'requestId'
+      });
     });
 
     it('defined a hasMany association with Trips', () => {
-      expect(Request.hasMany).to.have.been.calledWith(Trips, { as: 'requestTrips', foreignKey: 'requestId' });
+      expect(Request.hasMany).to.have.been.calledWith(Trips, {
+        as: 'requestTrips',
+        foreignKey: 'requestId',
+        hooks: true,
+        onDelete: 'cascade'
+      });
     });
   });
 });

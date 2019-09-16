@@ -9,27 +9,31 @@ export default {
     status: {
       type: Sequelize.ENUM('pending', 'rejected', 'approved'),
       allowNull: false,
-      defaultValue: 'pending',
-    },
-    accommodationId: {
-      type: Sequelize.DataTypes.UUID,
-      allowNull: false,
-      references: {
-        model: 'Accommodations',
-        key: 'id',
-      },
-      onUpdate: 'CASCADE',
-      onDelete: 'SET NULL'
+      defaultValue: 'pending'
     },
     userId: {
       type: Sequelize.DataTypes.UUID,
       allowNull: false,
       references: {
         model: 'Users',
-        key: 'id',
+        key: 'id'
       },
       onUpdate: 'CASCADE',
       onDelete: 'SET NULL'
+    },
+    departmentId: {
+      type: Sequelize.DataTypes.UUID,
+      allowNull: false,
+      references: {
+        model: 'Departments',
+        key: 'id'
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'SET NULL'
+    },
+    lineManagerMail: {
+      type: Sequelize.DataTypes.STRING,
+      allowNull: false
     },
     createdAt: {
       allowNull: false,

@@ -26,6 +26,30 @@ export default {
         createdAt: new Date(),
         updatedAt: new Date()
       },
+      {
+        id: '6ec04654-da17-4884-a4bb-410c2fb27430',
+        userId: '2e2e18b9-8bf8-43c3-b19a-c36477dc47b6',
+        departmentId: '36da1ce3-8e1f-4b0f-8e15-1189d8231ef2',
+        role: 'Staff',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        id: '1e0192d9-3612-486f-991e-1b694a47a676',
+        userId: 'f889348b-abb2-4cda-bec1-04251163ce64',
+        departmentId: 'ac99e4b1-b145-403e-aae0-96d7863eaf7d',
+        role: 'Manager',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        id: 'd8f2f86e-bf0c-4197-bc49-e8f11b091869',
+        userId: 'f1daf099-62cf-4851-a600-7d5321f9b5d4',
+        departmentId: 'ac99e4b1-b145-403e-aae0-96d7863eaf7d',
+        role: 'Staff',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
     ],
     {}
   ),

@@ -31,7 +31,7 @@ const reactToAccommodation = async (req, res, reactionType) => {
     const { count } = await Reaction.findAndCountAll({
       where: { accommodationId, reaction: reactionType }
     });
-    reactionType ? reactionType = 'like' : reactionType = 'unlike';
+    reactionType = reactionType ? reactionType = 'like' : reactionType = 'unlike';
     return successResponse(res, 200, `Total number of ${reactionType}: ${count}`, { [reactionType]: count });
   } catch (error) {
     return errorResponse(res, 500, 'Internal server error');

@@ -15,7 +15,7 @@ export default (sequelize, DataTypes) => {
   }, {});
   Accommodation.associate = (models) => {
     Accommodation.hasMany(models.Rooms, { as: 'roomAccommodation', foreignKey: 'accommodationId', onDelete: 'cascade', hooks: true });
-    Accommodation.hasMany(models.Requests, { as: 'requestAccommodation', foreignKey: 'accommodationId', onDelete: 'cascade', hooks: true });
+Accommodation.hasMany(models.Trips, { as: 'tripAccommodation', foreignKey: 'accommodationId', onDelete: 'cascade', hooks: true });
     Accommodation.hasMany(models.Reaction, { as: 'accommodationReaction', foreignKey: 'accommodationId', onDelete: 'cascade', hooks: true });
   };
   return Accommodation;

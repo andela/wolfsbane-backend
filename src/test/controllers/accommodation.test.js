@@ -376,7 +376,7 @@ describe('Test for Accommodation Endpoints', () => {
         .request(app)
         .post(signinRoute)
         .send(login)
-        .end((logError, logResponse) => {
+        .end(() => {
           const token = '';
           chai.request(app)
             .get(`${accommodationRoute}/`)

@@ -6,13 +6,10 @@ import { check, body, param } from 'express-validator';
 the regex /^[A-Za-z\-']{2,250}$/
 is made up of a single character set, between
 [], with a quantifier {2,250}
-
 A-Za-z => matches upper and lowercase alphabets
 \-' => matches a - and a '
-
 the last {2,250} is a quantifier specifying that the character been matched
 should be > 1 and <= 250
-
 the ^ and $ runs the match from the beginning and end of the string
 */
 
@@ -117,4 +114,51 @@ export const checkRoomId = [
 ];
 export const checkAccommodationId = [
   checkUuid('accommodationId', 'Invalid Accommodation Id')
+];
+// export const TripRequest = [
+//   check('origin', 'please provide the origin..').trim().not().isEmpty(),
+//   check('destination', 'please provide the destination..').trim().not().isEmpty(),
+//   check('departureDate', 'please select the departure date..').trim().not().isEmpty(),
+//   check('travelReasons', 'please provide the travel reason.').trim().not().isEmpty(),
+//   check('typeOfTrip', 'please select the type of trip..').trim().not().isEmpty(),
+//   check('roomId', 'please select a room..').trim().not().isEmpty(),
+//   check('accommodationId', 'please select an accommodation..').trim().not().isEmpty()
+// ];
+
+export const TripRequest = [
+  param('requestId')
+    .trim()
+    .not()
+    .isEmpty()
+    .matches(uuidRegex),
+  body('typeOfTrip').trim().not().isEmpty()
+    .custom((value) => {
+      if (value !== 'One Way' && value !== 'Return' && value !== 'Multi-City') {
+        throw Error('typeOfTrip is not valid');
+      }
+      return true;
+    }),
+  body('trip').isArray().custom((trips, { req }) => {
+    if (!Array.isArray(trips)) {
+      throw Error('trip should be an array of trip object(s)');
+    }
+    trips.forEach((trip, index) => {
+      const {
+        destination, origin, accommodationId, departureDate, returnDate, travelReasons, roomId
+      } = trip;
+      if (!destination || !origin || !accommodationId || !departureDate
+        || !travelReasons || !roomId) {
+        throw Error(`trip detail at index ${index} is not valid`);
+      }
+      if (req.body.typeOfTrip === 'Return' && !returnDate) {
+        throw Error('A "Return" trip must include returnDate');
+      }
+    });
+    return true;
+  })
+];
+
+export const RequestMail = [
+  check('lineManagerMail', 'please provide the email..').trim().isEmail()
+    .isLength({ min: 3, max: 250 }),
 ];
